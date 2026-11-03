@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="am" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Little Nest Design - Gallery Marketplace</title>
+    <link rel="manifest" href="data:application/manifest+json;charset=utf-8,{
+        'name': 'Little Nest Design',
+        'short_name': 'Little Nest',
+        'start_url': '.',
+        'display': 'standalone',
+        'background_color': '#f5f0eb',
+        'theme_color': '#6d4c41',
+        'icons': [{
+            'src': 'logo.jpg',
+            'sizes': '512x512',
+            'type': 'image/jpeg'
+        }]
+    }">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f0eb;
+            color: #3e2723;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(62, 39, 35, 0.1);
+        }
+        .language-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+        .language-bar select {
+            width: auto;
+            padding: 6px 12px;
+            font-size: 13px;
+            background-color: #efebe9;
+            border: 1px solid #6d4c41;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #4e342e;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        .logo-container img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #6d4c41;
+            display: block;
+            margin: 0 auto 10px auto;
+        }
+        h1, h2, h3 {
+            color: #5d4037;
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .welcome-text {
+            text-align: center;
+            color: #6d4c41;
+            font-size: 15px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .sub-welcome-text {
+            text-align: center;
+            color: #5d4037;
+            font-size: 14px;
+            margin-bottom: 25px;
+            background-color: #efebe9;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .marketplace-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .market-card {
+            background-color: #faf8f6;
+            border: 1px solid #d7ccc8;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .market-card:hover {
+            border-color: #6d4c41;
+            background-color: #efebe9;
+        }
+        .market-card h4 {
+            color: #4e342e;
+            margin: 8px 0 5px 0;
+            font-size: 14px;
+        }
+        .market-card img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .tracker-box {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color: #efebe9;
+            border: 2px solid #6d4c41;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .public-reviews-section {
+            margin-top: 25px;
+            border-top: 2px dashed #d7ccc8;
+            background-color: #faf8f6;
+            border: 2px solid #6d4c41;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .review-card {
+            background: #fff;
+            border: 1px solid #d7ccc8;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 13px;
+            color: #5d4037;
+            margin-bottom: 4px;
+        }
+        .review-stars {
+            color: #ffa000;
+            font-size: 13px;
+        }
+        .review-body {
+            font-size: 13px;
+            color: #3e2723;
+        }
+
+        .bank-box, .social-box, .calculation-box, .measurements-box, .admin-order-card {
+            background-color: #faf8f6;
+            border: 1px solid #d7ccc8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .admin-box-theme {
+            background-color: #ffebee !important;
+            border: 2px solid #c62828 !important;
+        }
+        .admin-order-card {
+            background-color: #fff;
+            border: 2px solid #c62828;
+            margin-bottom: 15px;
+        }
+        .archive-card {
+            background-color: #f1f8e9;
+            border: 2px solid #558b2f;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .btn-primary {
+            display: block;
+            width: 100%;
+            background-color: #6d4c41;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            border: none;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        .btn-primary:hover { background-color: #5d4037; }
+        .btn-admin-red { background-color: #c62828 !important; }
+        .btn-success-green { background-color: #558b2f !important; }
+        .btn-secondary {
+            display: block;
+            width: 100%;
+            background-color: #4e342e;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            border: none;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        .form-section { display: none; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #4e342e; font-weight: bold; font-size: 14px; }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d7ccc8;
+            border-radius: 6px;
+            background-color: #faf8f6;
+            box-sizing: border-box;
+            font-size: 14px;
+            color: #3e2723;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6d4c41; background-color: #fff; }
+        .phone-group { display: flex; gap: 8px; }
+        .phone-group select { flex: 1.2; }
+        .phone-group input { flex: 2; }
+        .size-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .size-grid div { background: #efebe9; padding: 6px; border-radius: 6px; text-align: center; }
+        .size-grid label { font-size: 12px; margin-bottom: 2px; }
+        .size-grid input { text-align: center; padding: 6px; }
+        .measurement-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .admin-img-preview { width: 100%; height: 120px; object-fit: cover; border-radius: 6px; border: 1px solid #d7ccc8; margin-top: 5px; cursor: pointer; }
+        #imageModal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #modalImage { max-width: 90%; max-height: 80%; border-radius: 8px; border: 2px solid #fff; }
+        #closeModalBtn {
+            margin-top: 15px; background-color: #c62828; color: white; border: none;
+            padding: 10px 25px; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="imageModal" onclick="closeModal()">
+        <img id="modalImage" src="" alt="Zoomed Photo">
+        <button id="closeModalBtn" onclick="closeModal()">ዝጋ (Close)</button>
+    </div>
+
+    <div class="container">
+        <!-- 🌍 የቋንቋዎች ማስተካከያ ባር -->
+        <div class="language-bar">
+            <select id="lang-selector" onchange="changeLanguage(this.value)">
+                <optgroup label="🇪🇹 የኢትዮጵያ ቋንቋዎች">
+                    <option value="am">🇪🇹 አማርኛ (Amharic)</option>
+                    <option value="ti">🇪🇹 ትግርኛ (Tigrinya)</option>
+                    <option value="om">🇪🇹 አፋን ኦሮሞ (Afaan Oromoo)</option>
+                    <option value="so">🇪🇹 ሶማሊኛ (Somali)</option>
+                    <option value="wo">🇪🇹 ወላይትኛ (Wolayttatto)</option>
+                </optgroup>
+                <optgroup label="🌐 ዓለም አቀፍ ቋንቋዎች">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="ar">🇸🇦 العربية (Arabic)</option>
+                    <option value="fr">🇫🇷 Français (French)</option>
+                    <option value="zh">🇨🇳 中文 (Chinese)</option>
+                    <option value="es">🇪🇸 Español (Spanish)</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <!-- 1. ዋናው ገጽ (Home View) -->
+        <div id="home-view">
+            <div class="logo-container" onclick="secretAdminTrigger()" title="Little Nest Design">
+                <img id="main-logo-preview" src="logo.jpg" alt="Little Nest Logo" onerror="this.src='https://via.placeholder.com/120?text=Logo'">
+            </div>
+
+            <h1 data-i18n="company_name">Little Nest Design</h1>
+            <p class="welcome-text" data-i18n="welcome_msg">እንኳን ደህና መጡ!</p>
+            <p class="sub-welcome-text" data-i18n="manifesto_text">በትንሽዬ ጎጆ ውስጥ ሁሉንም አገልግሎት</p>
+
+            <h3 style="color: #5d4037; text-align: center; margin-bottom: 15px;" data-i18n="market_categories">የገበያ ምድቦች (Marketplace Categories)</h3>
+
+            <div class="marketplace-grid">
+                <div class="market-card" onclick="openCategory('ወንድ አዋቂ')">
+                    <img src="logo.jpg" alt="Mens Wear" onerror="this.src='https://via.placeholder.com/150?text=Mens+Wear'">
+                    <h4 data-i18n="cat_mens">👔 የወንድ ልብሶች</h4>
+                    <p style="font-size: 11px; color: #6d4c41; margin: 2px 0;" data-i18n="cat_mens_sub">ቲሸርት፣ ሸሚዝ፣ ሱፍ...</p>
+                </div>
+                <div class="market-card" onclick="openCategory('ሴት አዋቂ')">
+                    <img src="logo.jpg" alt="Womens Wear" onerror="this.src='https://via.placeholder.com/150?text=Womens+Wear'">
+                    <h4 data-i18n="cat_womens">👗 የሴት ልብሶች</h4>
+                    <p style="font-size: 11px; color: #6d4c41; margin: 2px 0;" data-i18n="cat_womens_sub">ቀሚሶች፣ ስከርት...</p>
+                </div>
+                <div class="market-card" onclick="openCategory('ሙስሊም ሴቶች')">
+                    <img src="logo.jpg" alt="Muslim Women Wear" onerror="this.src='https://via.placeholder.com/150?text=Muslim+Wear'">
+                    <h4 data-i18n="cat_muslim">🧕 ለሙስሊም ሴቶች</h4>
+                    <p style="font-size: 11px; color: #6d4c41; margin: 2px 0;" data-i18n="cat_muslim_sub">ሂጃብ፣ አባያ፣ ጅልባብ</p>
+                </div>
+                <div class="market-card" onclick="openCategory('ፕላስ ሳይዝ')">
+                    <img src="logo.jpg" alt="Plus Size Wear" onerror="this.src='https://via.placeholder.com/150?text=Plus+Size'">
+                    <h4 data-i18n="cat_plussize">👗 ለፕላስ ሳይዝ ሴቶች</h4>
+                    <p style="font-size: 11px; color: #6d4c41; margin: 2px 0;" data-i18n="cat_plussize_sub">ምቹ እና ውብ ዲዛይኖች</p>
+                </div>
+                <div class="market-card" onclick="openCategory('ወንድ ህጻን')">
+                    <img src="logo.jpg" alt="Boys Wear" onerror="this.src='https://via.placeholder.com/150?text=Boys+Wear'">
+                    <h4 data-i18n="cat_boys">👦 የወንድ ህጻናት</h4>
+                    <p style="font-size: 11px; color: #6d4c41; margin: 2px 0;" data-i18n="cat_boys_sub">የህጻን ልብሶች</p>
+                </div>
+                <div class="market-card" onclick="openCategory('ሴት ህጻን')">
+                    <img src="logo.jpg" alt="Girls Wear" onerror="this.src='https://via.placeholder.com/150?text=Girls+Wear'">
+                    <h4 data-i18n="cat_girls">👧 የሴት ህጻናት</h4>
+                    <p style="font-size: 11px; color: #6d4c41; margin: 2px 0;" data-i18n="cat_girls_sub">የህጻን ቀሚሶች</p>
+                </div>
+                <div class="market-card" onclick="openCategory('አልጋ ልብስ')">
+                    <img src="logo.jpg" alt="Bed Sheets" onerror="this.src='https://via.placeholder.com/150?text=Bed+Sheets'">
+                    <h4 data-i18n="cat_beds">🛏️ አልጋ ልብሶች</h4>
+                    <p style="font-size: 11px; color: #6d4c41; margin: 2px 0;" data-i18n="cat_beds_sub">መጋረጃ እና አልጋ ልብስ</p>
+                </div>
+                <div class="market-card" onclick="openCategory('ፓምፐርስ')">
+                    <img src="logo.jpg" alt="Pampers" onerror="this.src='https://via.placeholder.com/150?text=Pampers'">
+                    <h4 data-i18n="cat_pampers">👶 የህጻናት ፓምፐርስ</h4>
+                    <p style="font-size: 11px; color: #6d4c41; margin: 2px 0;" data-i18n="cat_pampers_sub">ጥራት ያላቸው</p>
+                </div>
+                <div class="market-card" onclick="openCategory('ንጽህና መጠበቂያ')">
+                    <img src="logo.jpg" alt="Sanitary Pads" onerror="this.src='https://via.placeholder.com/150?text=Sanitary+Pads'">
+                    <h4 data-i18n="cat_sanitary">🌸 የሚታጠቡ ንጽህና</h4>
+                    <p style="font-size: 11px; color: #6d4c41; margin: 2px 0;" data-i18n="cat_sanitary_sub">የሴቶች ንጽህና</p>
+                </div>
+                <div class="market-card" onclick="openCategory('ቦርሳ እና ኮፍያ')">
+                    <img src="logo.jpg" alt="Bags and Hats" onerror="this.src='https://via.placeholder.com/150?text=Bags+Hats'">
+                    <h4 data-i18n="cat_bags">👜 ቦርሳ እና ኮፍያ</h4>
+                    <p style="font-size: 11px; color: #6d4c41; margin: 2px 0;" data-i18n="cat_bags_sub">የእጅ ስራዎች</p>
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="showForm('individual')" data-i18n="btn_ind_order">✨ የግለሰብ ዲዛይን ትዕዛዝ እና የዋጋ ጥያቄ</button>
+            <button class="btn-primary" style="background-color: #5d4037;" onclick="showForm('bulk')" data-i18n="btn_bulk_order">ለብዛት ትዕዛዝ እና ተረካቢዎች (በሳይዝ)</button>
+
+            <!-- 🌟 የትዕዛዝ ሁኔታ እና ዝርዝር መከታተያ -->
+            <div class="tracker-box">
+                <h3 style="color: #4e342e; margin-top: 0;" data-i18n="tracker_title">🔍 የትዕዛዝ ሁኔታ እና ዝርዝር መከታተያ</h3>
+                <p style="font-size: 13px; color: #5d4037; text-align: center; margin-bottom: 12px;" data-i18n="tracker_desc">የማረጋገጫ ኮድዎን (ለምሳሌ LND-XXXX) በማስገባት ያዘዙትን እቃ ዝርዝር እና የሂደት ደረጃ ይመልከቱ።</p>
+                <div class="form-group" style="margin-bottom: 8px;">
+                    <input type="text" id="track-code" placeholder="LND-XXXX" style="background:#fff;">
+                </div>
+                <button class="btn-primary" onclick="checkStatus()" data-i18n="btn_check_status">ትዕዛዜን እና ሁኔታውን አሳይ</button>
+                
+                <div id="status-result" class="result-box" style="display:none; background-color: #fff; padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid #d7ccc8;">
+                    <p id="status-text-output" style="font-size: 14px; line-height: 1.6; color: #4e342e;"></p>
+                    
+                    <div id="payment-upload-section" style="margin-top: 15px; display: none; border-top: 2px dashed #6d4c41; padding-top: 10px;">
+                        <h4 style="color: #b71c1c; margin-bottom: 5px; font-size: 14px;" data-i18n="bank_accounts_title">💳 የባንክ ክፍያ ማስተላለፊያ አካውንቶች:-</h4>
+                        <ul style="padding-left: 20px; font-size: 12px; margin-bottom: 10px;">
+                            <li><strong>ንግድ ባንክ (CBE):</strong> 1000403274759 (በማርያማዊት አበበ)</li>
+                            <li><strong>አቢሲኒያ ባንክ:</strong> 250323719 (በማርያማዊት አበበ)</li>
+                            <li><strong>አዋሽ ባንክ:</strong> 013471230869000 (በማርያማዊት አበበ)</li>
+                            <li><strong>ቴሌብር (Telebirr):</strong> 0977236278 (በማርያማዊት አበበ)</li>
+                        </ul>
+                        <div class="form-group">
+                            <label style="font-size: 12px; color: #b71c1c;" data-i18n="upload_slip_label">📸 የባንክ ስሊፕ ፎቶ ይጫኑ (Upload Bank Slip):</label>
+                            <input type="file" id="customer-slip-file" accept="image/*">
+                        </div>
+                        <button class="btn-primary" onclick="submitCustomerSlip()" style="padding: 8px; font-size: 13px;" data-i18n="btn_send_slip">የባንክ ስሊፕ ላክ</button>
+                        <div id="slip-success-msg" style="color: green; font-size: 12px; font-weight: bold; margin-top: 5px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🌟 ደንበኛው ራሱ በስም ወይም በስልክ ኮዱን የሚያገኝበት ክፍል -->
+            <div class="tracker-box" style="background-color: #faf5f0; border-color: #8d6e63;">
+                <h3 style="color: #5d4037; margin-top: 0; font-size: 15px;" data-i18n="cust_lost_code_title">❓ ኮድዎ ጠፍብዎታል? (በስምዎ ወይም በስልክዎ ይፈልጉ)</h3>
+                <p style="font-size: 12px; color: #6d4c41; text-align: center; margin-bottom: 10px;" data-i18n="cust_lost_code_desc">ከዚህ በፊት ትዕዛዝ ሲያስገቡ የጠቀሙትን ሙሉ ስም ወይም ስልክ ቁጥር ያስገቡ።</p>
+                <div class="form-group" style="margin-bottom: 8px;">
+                    <input type="text" id="customer-self-search-input" placeholder="ስምዎን ወይም ስልክ ቁጥርዎን ያስገቡ..." style="background:#fff;">
+                </div>
+                <button class="btn-primary" style="background-color: #5d4037; padding: 10px; font-size: 14px; margin-bottom: 0;" onclick="customerFindTheirCode()" data-i18n="btn_find_my_code">ኮዴን ፈልግ</button>
+                <div id="customer-self-search-result" style="display:none; background:#fff; padding:12px; border-radius:6px; margin-top:10px; border:1px solid #d7ccc8; font-size:13px; color:#3e2723; line-height:1.5;"></div>
+            </div>
+
+            <!-- 🌟 የደንበኞች ግብረ-መልስ እና አስተያየት መስጫ -->
+            <div class="public-reviews-section">
+                <h3 style="color: #4e342e; margin-top: 0;" data-i18n="reviews_title">💬 የደንበኞች አስተያየቶች እና ግምገማዎች</h3>
+                <p style="font-size: 12px; color: #6d4c41; text-align: center; margin-bottom: 15px;" data-i18n="reviews_desc">እቃውን የተረከቡ ደንበኞች የሰጡት አስተያየት (ለሁሉም የሚታይ)</p>
+                
+                <div style="background: #fff; padding: 12px; border-radius: 8px; border: 1px solid #d7ccc8; margin-bottom: 15px;">
+                    <h4 style="margin: 0 0 8px 0; font-size: 13px; color: #5d4037;" data-i18n="write_review_title">አስተያየትዎን ወይም ግምገማዎን ይፃፉ:</h4>
+                    <div class="form-group" style="margin-bottom: 8px;">
+                        <input type="text" id="reviewer-name" data-i18n-placeholder="placeholder_reviewer_name" placeholder="ሙሉ ስምዎ (ወይም 닉ኔም)" style="font-size: 13px; padding: 8px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 8px;">
+                        <select id="review-rating" style="font-size: 13px; padding: 8px;">
+                            <option value="★★★★★">⭐⭐⭐⭐⭐ (5/5)</option>
+                            <option value="★★★★☆">⭐⭐⭐⭐ (4/5)</option>
+                            <option value="★★★☆☆">⭐⭐⭐ (3/5)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 8px;">
+                        <textarea id="review-text" rows="2" data-i18n-placeholder="placeholder_review_text" placeholder="ስለ ስራው፣ ስለ ጥራቱ ወይም ስለ ዴሊቨሪው ያለዎትን አስተያየት ይፃፉ..." style="font-size: 13px; padding: 8px;"></textarea>
+                    </div>
+                    <button class="btn-primary" style="padding: 8px; font-size: 13px; margin-bottom:0;" onclick="submitPublicReview()" data-i18n="btn_send_review">አስተያየት ላክ (ለህዝብ አሳይ)</button>
+                </div>
+
+                <div id="public-reviews-container"></div>
+            </div>
+        </div>
+
+        <!-- 2. Category Gallery View -->
+        <div id="sub-category-view" class="form-section">
+            <h2 id="sub-cat-title">ምድቦች</h2>
+            <div id="pinterest-feed-container" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;"></div>
+            <button onclick="showHome()" class="btn-secondary" style="background-color: #8d6e63;" data-i18n="btn_back_home">← ወደ መነሻ ገጽ ተመለስ</button>
+        </div>
+
+        <!-- 3. የግለሰብ ትዕዛዝ እና የዋጋ ጥያቄ ቅጽ -->
+        <div id="individual-form-view" class="form-section">
+            <h2 data-i18n="ind_form_title">የግለሰብ የዲዛይን ትዕዛዝ እና የዋጋ ጥያቄ</h2>
+            <p style="font-size: 13px; color: #b71c1c; text-align: center; background-color: #ffebee; padding: 10px; border-radius: 6px; font-weight: bold;" data-i18n="ind_form_note">
+                ⚠️ ማሳሰቢያ፡ የራስዎን ፎቶ ከላኩ አድሚኑ ዋጋ ልኮልዎ በኮድዎ ገብተው ማየት ይችላሉ።
+            </p>
+            <form id="individualOrderForm" onsubmit="submitIndividualOrder(event)">
+                <div class="form-group"><label data-i18n="lbl_fullname">ሙሉ ስም:</label><input type="text" id="ind-name" placeholder="ስምዎን ያስገቡ" required></div>
+                <div class="form-group">
+                    <label data-i18n="lbl_phone">ስልክ ቁጥር (ከሀገር ኮድ ጋር):</label>
+                    <div class="phone-group">
+                        <select id="ind-country-code">
+                            <option value="+251">🇪🇹 +251 (ኢትዮጵያ)</option>
+                            <option value="+1">🇺🇸 +1 (አሜሪካ/ካናዳ)</option>
+                            <option value="+971">🇦🇪 +971 (ዱባይ/ዩኤኢ)</option>
+                            <option value="+other">🌐 ሌላ ሀገር</option>
+                        </select>
+                        <input type="tel" id="ind-phone" placeholder="911223344" required>
+                    </div>
+                </div>
+                <div class="form-group"><label data-i18n="lbl_telegram">የቴሌግራም ዩዘርኔም (Telegram Username - ካለ):</label><input type="text" id="ind-telegram" placeholder="@username"></div>
+                <div class="form-group">
+                    <label data-i18n="lbl_destination">የእቃው መድረሻ አካባቢ (Delivery Destination):</label>
+                    <select id="ind-destination-type">
+                        <option value="local-addis" data-i18n="dest_addis">አዲስ አበባ ውስጥ (ፍሪ ዴሊቨሪ - ልብሱን ሲረከቡ ክፍያ)</option>
+                        <option value="domestic-region" data-i18n="dest_region">አዲስ አበባ ውጪ (ክፍለ ሀገር - እቃው ሊላክ ሲል ክፍያ)</option>
+                        <option value="international" data-i18n="dest_intl">ከሀገር ውጪ (နိုင်ငံ ውጪ - ዲኤችኤል/ሆስተስ/ቤተሰብ)</option>
+                    </select>
+                </div>
+                <div class="form-group"><label data-i18n="lbl_gender">ጾታ:</label><select id="ind-gender"><option value="ወንድ" data-i18n="gender_male">ወንድ (Male)</option><option value="ሴት" data-i18n="gender_female">ሴት (Female)</option></select></div>
+                <div class="form-group"><label data-i18n="lbl_age">እድሜ (ለአዋቂ ወይም ህጻን):</label><input type="text" id="ind-age" placeholder="ለምሳሌ: 25 ዓመት ወይም 5 ዓመት" required></div>
+                <div class="form-group">
+                    <label data-i18n="lbl_item_type">የሚፈልጉት እቃ ዓይነት:</label>
+                    <select id="ind-item-type">
+                        <option value="ስከርት (Skirt)">ስከርት (Skirt)</option>
+                        <option value="ቲሸርት (T-Shirt)">ቲሸርት (T-Shirt)</option>
+                        <option value="ሸሚዝ (Shirt)">ሸሚዝ (Shirt)</option>
+                        <option value="ቀሚስ (Dress)">ቀሚስ (Dress)</option>
+                        <option value="ሱፍ ልብስ (Suit)">ሱፍ ልብስ (Suit)</option>
+                        <option value="ሌላ እቃ" data-i18n="item_other">ሌላ ዓይነት እቃ</option>
+                    </select>
+                </div>
+                <div class="form-group"><label data-i18n="lbl_color">የሚፈልጉት ከለር ወይም ዓይነት:</label><input type="text" id="ind-color" placeholder="ለምሳሌ: ቡኒ፣ ጥቁር..." required></div>
+                <div class="form-group"><label data-i18n="lbl_fabric">የጨርቅ ወይም እቃው ጥራት ዓይነት:</label><input type="text" id="ind-fabric" placeholder="ለምሳሌ: ጥጥ / ሱፍ..." required></div>
+                <div class="form-group" style="background-color: #faf5f0; padding: 10px; border-radius: 6px; border: 1px dashed #6d4c41;">
+                    <label data-i18n="lbl_photo">📸 የልብሱ/ስከርት ፎቶ (የእርስዎን ፎቶ ከላኩ ዋጋ እንልክልዎታለን):</label>
+                    <input type="file" id="ind-design-photo" accept="image/*" required>
+                </div>
+                <div class="measurements-box">
+                    <h3 data-i18n="measurements_title">የሰውነት ልኬቶች / የዕቃው መጠን</h3>
+                    <div class="measurement-grid">
+                        <div class="form-group"><label data-i18n="m_length">ርዝመት (cm):</label><input type="number" id="m-length" placeholder="100" required></div>
+                        <div class="form-group"><label data-i18n="m_waist">ወገብ (cm):</label><input type="number" id="m-waist" placeholder="80" required></div>
+                        <div class="form-group"><label data-i18n="m_hip">ዳሌ (cm):</label><input type="number" id="m-hip" placeholder="100" required></div>
+                        <div class="form-group"><label data-i18n="m_thigh">ጭን (cm):</label><input type="number" id="m-thigh" placeholder="55" required></div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" data-i18n="btn_submit_order">ትዕዛዝ ላክ እና ኮድ ውሰድ</button>
+            </form>
+            <div id="ind-success-msg" style="text-align: center; color: green; margin-top: 10px; font-weight: bold; font-size: 15px;"></div>
+            <button onclick="showHome()" class="btn-secondary" style="margin-top: 15px; background-color: #8d6e63;" data-i18n="btn_back_home">← ወደ መነሻ ገጽ ተመለስ</button>
+        </div>
+
+        <!-- 4. ለብዛት ትዕዛዝ እና ተረካቢዎች (Bulk Order Form) -->
+        <div id="bulk-form-view" class="form-section">
+            <h2 data-i18n="bulk_form_title">የብዛት ትዕዛዝ እና ተረካቢዎች ቅጽ (በየሳይዙ)</h2>
+            <form id="bulkOrderForm" onsubmit="submitBulkOrder(event)">
+                <div class="form-group"><label data-i18n="lbl_fullname">ሙሉ ስም:</label><input type="text" id="bulk-name" placeholder="ስምዎን ያስገቡ" required></div>
+                <div class="form-group">
+                    <label data-i18n="lbl_phone">ስልክ ቁጥር (ከሀገር ኮድ ጋር):</label>
+                    <div class="phone-group">
+                        <select id="bulk-country-code">
+                            <option value="+251">🇪🇹 +251 (ኢትዮጵያ)</option>
+                            <option value="+1">🇺🇸 +1 (አሜሪካ/ካናዳ)</option>
+                            <option value="+971">🇦🇪 +971 (ዱባይ/ዩኤኢ)</option>
+                            <option value="+other">🌐 ሌላ ሀገር</option>
+                        </select>
+                        <input type="tel" id="bulk-phone" placeholder="911223344" required>
+                    </div>
+                </div>
+                <div class="form-group"><label data-i18n="lbl_telegram">የቴሌግራም ዩዘርኔም:</label><input type="text" id="bulk-telegram" placeholder="@username"></div>
+                <div class="form-group"><label data-i18n="bulk_item_desc">የጅምላ እቃ ዓይነት እና ሞዴል:</label><input type="text" id="bulk-item-desc" placeholder="ለምሳሌ: የሴቶች ስከርት / ቲሸርት ጅምላ" required></div>
+                <div class="form-group">
+                    <label style="color: #6d4c41; margin-bottom: 8px;" data-i18n="size_breakdown">📏 የሳይዝ እና የብዛት ዝርዝር (Size Breakdown):</label>
+                    <div class="size-grid">
+                        <div><label>Small (S)</label><input type="number" id="bulk-size-s" value="0" min="0"></div>
+                        <div><label>Medium (M)</label><input type="number" id="bulk-size-m" value="0" min="0"></div>
+                        <div><label>Large (L)</label><input type="number" id="bulk-size-l" value="0" min="0"></div>
+                        <div><label>X-Large (XL)</label><input type="number" id="bulk-size-xl" value="0" min="0"></div>
+                        <div><label>2X-Large (2XL)</label><input type="number" id="bulk-size-2xl" value="0" min="0"></div>
+                        <div><label data-i18n="size_other">ሌላ / ஃப்ሪሳይዝ</label><input type="number" id="bulk-size-other" value="0" min="0"></div>
+                    </div>
+                </div>
+                <div class="form-group" style="background-color: #faf5f0; padding: 10px; border-radius: 6px; border: 1px dashed #6d4c41;">
+                    <label data-i18n="bulk_photo">📸 የጅምላ እቃው ፎቶ ወይም ናሙና:</label>
+                    <input type="file" id="bulk-design-photo" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn-primary" data-i18n="btn_submit_bulk">የጅምላ ትዕዛዝ ላክ እና ኮድ ውሰድ</button>
+            </form>
+            <div id="bulk-success-msg" style="text-align: center; color: green; font-weight: bold; margin-top: 10px;"></div>
+            <button onclick="showHome()" class="btn-secondary" style="margin-top: 10px; background-color: #8d6e63;" data-i18n="btn_back_home">← ወደ መነሻ ገጽ ተመለስ</button>
+        </div>
+
+        <!-- 5. አድሚን ሎጊን ገጽ -->
+        <div id="admin-login-view" class="form-section">
+            <h2 style="color: #c62828;" data-i18n="admin_login_title">⚙️ የአስተዳዳሪ መግቢያ</h2>
+            <div class="form-group"><label style="color: #c62828;" data-i18n="admin_pass_label">የሚስጥር ቃል:</label><input type="password" id="admin-password-input" placeholder="********" style="border-color: #c62828;"></div>
+            <button class="btn-primary btn-admin-red" onclick="verifyAdminPassword()" data-i18n="btn_admin_login">ግባ (Login)</button>
+            <button onclick="showHome()" class="btn-secondary" style="margin-top: 10px; background-color: #8d6e63;" data-i18n="btn_back_home">← ወደ መነሻ ገጽ ተመለስ</button>
+        </div>
+
+        <!-- 6. አድሚን ፓነል -->
+        <div id="admin-view" class="form-section">
+            <h2 style="color: #c62828;" data-i18n="admin_panel_title">⚙️ የአስተዳዳሪ (Admin) ፓነል</h2>
+            
+            <div class="bank-box admin-box-theme">
+                <h3 style="color: #c62828;" data-i18n="admin_logo_title">🖼️ የድርጅቱን ሎጎ ፎቶ መቀየሪያ</h3>
+                <input type="file" id="admin-logo-file-input" accept="image/*" style="margin-bottom: 10px;">
+                <button class="btn-primary btn-admin-red" style="padding: 8px; font-size: 13px;" onclick="saveAdminLogo()">ሎጎውን አስቀምጥ (Save Logo)</button>
+            </div>
+
+            <!-- የአድሚን ፓስወርድ መቀየሪያ ክፍል -->
+            <div class="bank-box admin-box-theme" style="margin-top: 15px;">
+                <h3 style="color: #c62828;">🔐 የአስተዳዳሪ የሚስጥር ቃል መቀየሪያ (Change Admin Password)</h3>
+                <div class="form-group" style="margin-bottom: 8px;">
+                    <label style="color: #c62828; font-size: 12px;">አዲስ የሚስጥር ቃል (New Password):</label>
+                    <input type="password" id="new-admin-pass" placeholder="አዲስ ፓስወርድ ያስገቡ..." style="background:#fff; border-color:#c62828;">
+                </div>
+                <button class="btn-primary btn-admin-red" style="padding: 8px; font-size: 13px;" onclick="changeAdminPassword()">ፓስወርዱን ቀይር</button>
+            </div>
+
+            <div class="bank-box admin-box-theme" style="margin-top: 15px;">
+                <h3 style="color: #c62828;" data-i18n="admin_search_title">🔍 የጠፋ ኮድ መፈለጊያ (በስም ወይም በስልክ)</h3>
+                <p style="font-size: 12px; color: #5d4037; text-align: center; margin-bottom: 10px;" data-i18n="admin_search_desc">ደንበኛ በቴሌግራም «ኮዴ ጠፍቶብኛል» ሲል ስሙን ወይም ስልክ ቁጥሩን እዚህ በመጻፍ ፈልገው ያግኙት።</p>
+                <div class="form-group" style="margin-bottom: 8px;">
+                    <input type="text" id="admin-search-input" placeholder="የደንበኛ ስም ወይም ስልክ ቁጥር ያስገቡ..." style="background:#fff; border-color:#c62828;">
+                </div>
+                <button class="btn-primary btn-admin-red" onclick="searchCustomerCode()" data-i18n="btn_search_code">ኮዱን ፈልግ</button>
+                <div id="admin-search-result" style="display:none; background:#fff; padding:12px; border-radius:6px; margin-top:10px; border:1px solid #c62828; font-size:13px; color:#3e2723; line-height:1.5;"></div>
+            </div>
+
+            <div class="bank-box admin-box-theme" style="margin-top: 15px;">
+                <h3 style="color: #c62828;" data-i18n="admin_item_title">🛍️ የካታጎሪ እቃዎች እና ዋጋ መጫኛ (ለማርኬትፕሌስ)</h3>
+                <div class="form-group">
+                    <label style="color: #c62828;" data-i18n="admin_cat_label">ምድብ ይምረጡ:</label>
+                    <select id="new-item-cat">
+                        <option value="ወንድ አዋቂ">👔 የወንድ ልብሶች</option>
+                        <option value="ሴት አዋቂ">👗 የሴት ልብሶች</option>
+                        <option value="ሙስሊም ሴቶች">🧕 ለሙስሊም ሴቶች</option>
+                        <option value="ፕላስ ሳይዝ">👗 ለፕላስ ሳይዝ ሴቶች</option>
+                        <option value="ወንድ ህጻን">👦 የወንድ ህጻናት</option>
+                        <option value="ሴት ህጻን">👧 የሴት ህጻናት</option>
+                        <option value="አልጋ ልብስ">🛏️ አልጋ ልብሶች</option>
+                        <option value="ፓምፐርስ">👶 የህጻናት ፓምፐርስ</option>
+                        <option value="ንጽህና መጠበቂያ">🌸 የሚታጠቡ ንጽህና</option>
+                        <option value="ቦርሳ እና ኮፍያ">👜 ቦርሳ እና ኮፍያ</option>
+                    </select>
+                </div>
+                <div class="form-group"><label style="color: #c62828;" data-i18n="admin_item_name">እቃው/ቲሸርቱ ስም:</label><input type="text" id="new-item-name" placeholder="ለምሳሌ: ክላሲክ ጥቁር ቲሸርት (Model A)"></div>
+                <div class="form-group"><label style="color: #c62828;" data-i18n="admin_item_price">ዋጋ (በብር):</label><input type="text" id="new-item-price" placeholder="1,800 ብር"></div>
+                <div class="form-group"><label style="color: #c62828;" data-i18n="admin_item_photo">የእቃው ፎቶ:</label><input type="file" id="new-item-img" accept="image/*"></div>
+                <button class="btn-primary btn-admin-red" onclick="addNewMarketItem()" data-i18n="btn_upload_item">እቃውን እና ዋጋውን ጫን</button>
+            </div>
+
+            <h3 style="color: #c62828; margin-top: 25px; border-bottom: 2px solid #c62828; padding-bottom: 5px;" data-i18n="active_orders_title">የደንበኞች ንቁ ትዕዛዞች</h3>
+            <div id="admin-orders-container" style="margin-top: 15px;"></div>
+
+            <h3 style="color: #558b2f; margin-top: 30px; border-bottom: 2px solid #558b2f; padding-bottom: 5px;" data-i18n="archive_orders_title">✅ የተጠናቀቁ ስራዎች ማህደር (Archive)</h3>
+            <div id="admin-archive-container" style="margin-top: 15px;"></div>
+            
+            <button onclick="showHome()" class="btn-secondary" style="margin-top: 15px; background-color: #8d6e63;" data-i18n="btn_back_home">← ወደ መነሻ ገጽ ተመለስ</button>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            am: {
+                company_name: "Little Nest Design",
+                welcome_msg: "እንኳን ደህና መጡ!",
+                manifesto_text: "በትንሽዬ ጎጆ ውስጥ ሁሉንም አገልግሎት",
+                market_categories: "የገበያ ምድቦች (Marketplace Categories)",
+                cat_mens: "👔 የወንድ ልብሶች", cat_mens_sub: "ቲሸርት፣ ሸሚዝ፣ ሱፍ...",
+                cat_womens: "👗 የሴት ልብሶች", cat_womens_sub: "ቀሚሶች፣ ስከርት...",
+                cat_muslim: "🧕 ለሙስሊም ሴቶች", cat_muslim_sub: "ሂጃብ፣ አባያ፣ ጅልባብ",
+                cat_plussize: "👗 ለፕላስ ሳይዝ ሴቶች", cat_plussize_sub: "ምቹ እና ውብ ዲዛይኖች",
+                cat_boys: "👦 የወንድ ህጻናት", cat_boys_sub: "የህጻን ልብሶች",
+                cat_girls: "👧 የሴት ህጻናት", cat_girls_sub: "የህጻን ቀሚሶች",
+                cat_beds: "🛏️ አልጋ ልብሶች", cat_beds_sub: "መጋረጃ እና አልጋ ልብስ",
+                cat_pampers: "👶 የህጻናት ፓምፐርስ", cat_pampers_sub: "ጥራት ያላቸው",
+                cat_sanitary: "🌸 የሚታጠቡ ንጽህና", cat_sanitary_sub: "የሴቶች ንጽህና",
+                cat_bags: "👜 ቦርሳ እና ኮፍያ", cat_bags_sub: "የእጅ ስራዎች",
+                btn_ind_order: "✨ የግለሰብ ዲዛይን ትዕዛዝ እና የዋጋ ጥያቄ",
+                btn_bulk_order: "ለብዛት ትዕዛዝ እና ተረካቢዎች (በሳይዝ)",
+                tracker_title: "🔍 የትዕዛዝ ሁኔታ እና ዝርዝር መከታተያ",
+                tracker_desc: "የማረጋገጫ ኮድዎን (ለምሳሌ LND-XXXX) በማስገባት ያዘዙትን እቃ ዝርዝር እና የሂደት ደረጃ ይመልከቱ።",
+                btn_check_status: "ትዕዛዜን እና ሁኔታውን አሳይ",
+                bank_accounts_title: "💳 የባንክ ክፍያ ማስተላለፊያ አካውንቶች:-",
+                upload_slip_label: "📸 የባንክ ስሊፕ ፎቶ ይጫኑ (Upload Bank Slip):",
+                btn_send_slip: "የባንክ ስሊፕ ላክ",
+                cust_lost_code_title: "❓ ኮድዎ ጠፍብዎታል? (በስምዎ ወይም በስልክዎ ይፈልጉ)",
+                cust_lost_code_desc: "ከዚህ በፊት ትዕዛዝ ሲያስገቡ የጠቀሙትን ሙሉ ስም ወይም ስልክ ቁጥር ያስገቡ።",
+                btn_find_my_code: "ኮዴን ፈልግ",
+                reviews_title: "💬 የደንበኞች አስተያየቶች እና ግምገማዎች",
+                reviews_desc: "እቃውን የተረከቡ ደንበኞች የሰጡት አስተያየት (ለሁሉም የሚታይ)",
+                write_review_title: "አስተያየትዎን ወይም ግምገማዎን ይፃፉ:",
+                placeholder_reviewer_name: "ሙሉ ስምዎ (ወይም 닉ኔም)",
+                placeholder_review_text: "ስለ ስራው፣ ስለ ጥራቱ ወይም ስለ ዴሊቨሪው ያለዎትን አስተያየት ይፃፉ...",
+                btn_send_review: "አስተያየት ላክ (ለህዝብ አሳይ)",
+                btn_back_home: "← ወደ መነሻ ገጽ ተመለስ",
+                ind_form_title: "የግለሰብ የዲዛይን ትዕዛዝ እና የዋጋ ጥያቄ",
+                ind_form_note: "⚠️ ማሳሰቢያ፡ የራስዎን ፎቶ ከላኩ አድሚኑ ዋጋ ልኮልዎ በኮድዎ ገብተው ማየት ይችላሉ።",
+                lbl_fullname: "ሙሉ ስም:", lbl_phone: "ስልክ ቁጥር (ከሀገር ኮድ ጋር):", lbl_telegram: "የቴሌግራም ዩዘርኔም (Telegram Username - ካለ):",
+                lbl_destination: "የእቃው መድረሻ አካባቢ (Delivery Destination):",
+                dest_addis: "አዲስ አበባ ውስጥ (ፍሪ ዴሊቨሪ - ልብሱን ሲረከቡ ክፍያ)",
+                dest_region: "አዲስ አበባ ውጪ (ክፍለ ሀገር - እቃው ሊላክ ሲል ክፍያ)",
+                dest_intl: "ከሀገር ውጪ (နိုင်ငံ ውጪ - ዲኤችኤል/ሆስተስ/ቤተሰብ)",
+                lbl_gender: "ጾታ:", gender_male: "ወንድ (Male)", gender_female: "ሴት (Female)",
+                lbl_age: "እድሜ (ለአዋቂ ወይም ህጻን):", lbl_item_type: "የሚፈልጉት እቃ ዓይነት:", item_other: "ሌላ ዓይነት እቃ",
+                lbl_color: "የሚፈልጉት ከለር ወይም ዓይነት:", lbl_fabric: "የጨርቅ ወይም እቃው ጥራት ዓይነት:",
+                lbl_photo: "📸 የልብሱ/ስከርት ፎቶ (የእርስዎን ፎቶ ከላኩ ዋጋ እንልክልዎታለን):",
+                measurements_title: "የሰውነት ልኬቶች / የዕቃው መጠን",
+                m_length: "ርዝመት (cm):", m_waist: "ወገብ (cm):", m_hip: "ዳሌ (cm):", m_thigh: "ጭን (cm):",
+                btn_submit_order: "ትዕዛዝ ላክ እና ኮድ ውሰድ",
+                bulk_form_title: "የብዛት ትዕዛዝ እና ተረካቢዎች ቅጽ (በየሳይዙ)",
+                bulk_item_desc: "የጅምላ እቃ ዓይነት እና ሞዴል:",
+                size_breakdown: "📏 የሳይዝ እና የብዛት ዝርዝር (Size Breakdown):",
+                size_other: "ሌላ / ஃப்ሪሳይዝ",
+                bulk_photo: "📸 የጅምላ እቃው ፎቶ ወይም ናሙና:",
+                btn_submit_bulk: "የጅምላ ትዕዛዝ ላክ እና ኮድ ውሰድ",
+                admin_login_title: "⚙️ የአስተዳዳሪ መግቢያ", admin_pass_label: "የሚስጥር ቃል:", btn_admin_login: "ግባ (Login)",
+                admin_panel_title: "⚙️ የአስተዳዳሪ (Admin) ፓነል", admin_logo_title: "🖼️ የድርጅቱን ሎጎ ፎቶ መቀየሪያ",
+                admin_search_title: "🔍 የጠፋ ኮድ መፈለጊያ (በስም ወይም በስልክ)",
+                admin_search_desc: "ደንበኛ በቴሌግራም «ኮዴ ጠፍቶብኛል» ሲል ስሙን ወይም ስልክ ቁጥሩን እዚህ በመጻፍ ፈልገው ያግኙት።",
+                btn_search_code: "ኮዱን ፈልግ",
+                admin_item_title: "🛍️ የካታጎሪ እቃዎች እና ዋጋ መጫኛ (ለማርኬትፕሌስ)",
+                admin_cat_label: "ምድብ ይምረጡ:", admin_item_name: "እቃው/ቲሸርቱ ስም:", admin_item_price: "ዋጋ (በብር):",
+                admin_item_photo: "የእቃው ፎቶ:", btn_upload_item: "እቃውን እና ዋጋውን ጫን",
+                active_orders_title: "የደንበኞች ንቁ ትዕዛዞች", archive_orders_title: "✅ የተጠናቀቁ ስራዎች ማህደር (Archive)"
+            },
+            en: {
+                company_name: "Little Nest Design",
+                welcome_msg: "Welcome!",
+                manifesto_text: "All services inside a little nest",
+                market_categories: "Marketplace Categories",
+                cat_mens: "👔 Men's Wear", cat_mens_sub: "T-Shirts, Shirts, Suits...",
+                cat_womens: "👗 Women's Wear", cat_womens_sub: "Dresses, Skirts...",
+                cat_muslim: "🧕 Muslim Women Wear", cat_muslim_sub: "Hijab, Abaya, Jilbab",
+                cat_plussize: "👗 Plus Size Wear", cat_plussize_sub: "Comfortable & Elegant designs",
+                cat_boys: "👦 Boys' Wear", cat_boys_sub: "Kids clothing",
+                cat_girls: "👧 Girls' Wear", cat_girls_sub: "Kids dresses",
+                cat_beds: "🛏️ Bed Sheets", cat_beds_sub: "Curtains & Bedding",
+                cat_pampers: "👶 Baby Pampers", cat_pampers_sub: "High quality",
+                cat_sanitary: "🌸 Washable Pads", cat_sanitary_sub: "Women hygiene",
+                cat_bags: "👜 Bags & Hats", cat_bags_sub: "Handmade crafts",
+                btn_ind_order: "✨ Individual Design Order & Price Inquiry",
+                btn_bulk_order: "Bulk Order & Wholesalers (By Size)",
+                tracker_title: "🔍 Order Status & Details Tracker",
+                tracker_desc: "Enter your confirmation code (e.g., LND-XXXX) to view your ordered item details and progress.",
+                btn_check_status: "Show Order & Status",
+                bank_accounts_title: "💳 Bank Payment Accounts:-",
+                upload_slip_label: "📸 Upload Bank Slip Photo:",
+                btn_send_slip: "Send Bank Slip",
+                cust_lost_code_title: "❓ Lost your code? (Search by Name or Phone)",
+                cust_lost_code_desc: "Enter the full name or phone number you used when placing your order.",
+                btn_find_my_code: "Find My Code",
+                reviews_title: "💬 Customer Reviews & Feedback",
+                reviews_desc: "Feedback from customers who received their items",
+                write_review_title: "Write your review or rating:",
+                placeholder_reviewer_name: "Your full name (or nickname)",
+                placeholder_review_text: "Write your feedback about quality, delivery, or work...",
+                btn_send_review: "Send Review (Publicly visible)",
+                btn_back_home: "← Back to Home",
+                ind_form_title: "Individual Design Order & Price Inquiry",
+                ind_form_note: "⚠️ Note: If you upload your own photo, admin will send a price and you can view it via your code.",
+                lbl_fullname: "Full Name:", lbl_phone: "Phone Number (with country code):", lbl_telegram: "Telegram Username (if any):",
+                lbl_destination: "Delivery Destination:",
+                dest_addis: "Inside Addis Ababa (Free Delivery - Pay on delivery)",
+                dest_region: "Outside Addis Ababa (Regional - Pay before dispatch)",
+                dest_intl: "International (DHL/Hostess/Family)",
+                lbl_gender: "Gender:", gender_male: "Male", gender_female: "Female",
+                lbl_age: "Age (Adult or Kid):", lbl_item_type: "Item Type:", item_other: "Other Item",
+                lbl_color: "Desired Color or Style:", lbl_fabric: "Fabric or Quality Type:",
+                lbl_photo: "📸 Item/Skirt Photo (We will send price if you upload your photo):",
+                measurements_title: "Body Measurements / Item Size",
+                m_length: "Length (cm):", m_waist: "Waist (cm):", m_hip: "Hip (cm):", m_thigh: "Thigh (cm):",
+                btn_submit_order: "Send Order & Get Code",
+                bulk_form_title: "Bulk Order Form (Size Breakdown)",
+                bulk_item_desc: "Bulk Item Type & Model:",
+                size_breakdown: "📏 Size Breakdown:",
+                size_other: "Other / Free Size",
+                bulk_photo: "📸 Bulk Item Photo or Sample:",
+                btn_submit_bulk: "Send Bulk Order & Get Code",
+                admin_login_title: "⚙️ Admin Login", admin_pass_label: "Password:", btn_admin_login: "Login",
+                admin_panel_title: "⚙️ Admin Panel", admin_logo_title: "🖼️ Change Company Logo",
+                admin_search_title: "🔍 Lost Code Finder (By Name or Phone)",
+                admin_search_desc: "When a customer asks on Telegram 'I lost my code', search their name or phone here.",
+                btn_search_code: "Find Code",
+                admin_item_title: "🛍️ Marketplace Items & Price Uploader",
+                admin_cat_label: "Select Category:", admin_item_name: "Item Name:", admin_item_price: "Price (ETB):",
+                admin_item_photo: "Item Photo:", btn_upload_item: "Upload Item & Price",
+                active_orders_title: "Active Customer Orders", archive_orders_title: "✅ Completed Orders Archive"
+            },
+            ti: {
+                company_name: "Little Nest Design",
+                welcome_msg: "ብሓባርእንቋዕ ብደሓን መጻእኩም!",
+                manifesto_text: "ኣብ ንእሽተይ ጎጆ ኩሉ ዓይነት ኣገልግሎት",
+                market_categories: "መደባት ዕዳጋ",
+                cat_mens: "👔 ተባዕታይ ክዳውንቲ", cat_mens_sub: "ቲሸርት፣ ሸሚዝ...",
+                cat_womens: "👗 ደቂ ኣንስትዮ ክዳውንቲ", cat_womens_sub: "ቀሚሻታት...",
+                cat_muslim: "🧕 ንሙስሊም ደቂ ኣንስትዮ", cat_muslim_sub: "ሂጃብ፣ ኣባያ",
+                cat_plussize: "👗 ንፕላስ ሳይዝ", cat_plussize_sub: "ምቹእ ዲዛይን",
+                cat_boys: "👦 ተባዕታይ ህጻናት", cat_boys_sub: "ክዳውንቲ ህጻናት",
+                cat_girls: "👧 ደቂ ኣንስትዮ ህጻናት", cat_girls_sub: "ቀሚሻታት ህጻናት",
+                cat_beds: "🛏️ አልጋ ክዳውንቲ", cat_beds_sub: "መጋረጃ",
+                cat_pampers: "👶 памፐርስ", cat_pampers_sub: "ጽፉፋት",
+                cat_sanitary: "🌸 ንጽህና", cat_sanitary_sub: "ንጽህና ደቂ ኣንስትዮ",
+                cat_bags: "👜 ቦርሳን ቆፊያን", cat_bags_sub: "ናይ ኢድ ስራሓት",
+                btn_ind_order: "✨ ውልቃዊ ዲዛይን ትእዛዝ",
+                btn_bulk_order: "ናይ ብዝሒ ትእዛዝ",
+                tracker_title: "🔍 ኩነታት ትእዛዝ መርመራ",
+                tracker_desc: "ኮድኩም ኣእቲኹም ርኣዩ።",
+                btn_check_status: "ኩነታት ትእዛዝ ኣርኢ",
+                bank_accounts_title: "💳 ናይ ባንክ ሕሳባት:-",
+                upload_slip_label: "📸 ናይ ባንክ ስሊፕ ፎቶ ጽዓኑ:",
+                btn_send_slip: "ስሊፕ ልኣኽ",
+                cust_lost_code_title: "❓ ኮድኩም ጠፊኡኩምዶ?",
+                cust_lost_code_desc: "ስም ወይ ስልኪ ኣእትዉ።",
+                btn_find_my_code: "ኮደይ ድለ",
+                reviews_title: "💬 ርኢቶን ገምጋምን ዓማዊል",
+                reviews_desc: "ርኢቶ ዓማዊል",
+                write_review_title: "ርኢቶኹም ጽሓፉ:",
+                placeholder_reviewer_name: "ምሉእ ስምኩም",
+                placeholder_review_text: "ርኢቶኹም ኣብዚ ጽሓፉ...",
+                btn_send_review: "ርኢቶ ልኣኽ",
+                btn_back_home: "← ተመለስ",
+                ind_form_title: "ውልቃዊ ዲዛይን ትእዛዝ",
+                ind_form_note: "⚠️ ፎቶ ልኣኹ።",
+                lbl_fullname: "ምሉእ ስም:", lbl_phone: "ቁጽሪ ስልኪ:", lbl_telegram: "ቴሌግራም:",
+                lbl_destination: "መድረሻ:",
+                dest_addis: "ኣዲስ ኣበባ ውሽጢ", dest_region: "ክፍለ ሃገር", dest_intl: "ካብ ሃገር ወጻኢ",
+                lbl_gender: "ጾታ:", gender_male: "ተባዕታይ", gender_female: "ኣንስተይቲ",
+                lbl_age: "ዕድመ:", lbl_item_type: "ዓይነት:", item_other: "ካልእ",
+                lbl_color: "ቀለሚ:", lbl_fabric: "ጨርቂ:", lbl_photo: "📸 ፎቶ:",
+                measurements_title: "መጠን",
+                m_length: "ርሕቀት:", m_waist: "ቐጽሪ:", m_hip: "ዳሌ:", m_thigh: "ጭን:",
+                btn_submit_order: "ትእዛዝ ልኣኽ",
+                bulk_form_title: "ቅጽ ትእዛዝ ብዝሒ", bulk_item_desc: "ዓይነት ብዝሒ:",
+                size_breakdown: "📏 ዝርዝር ሳይዝ:", size_other: "ካልእ", bulk_photo: "📸 ፎቶ ናሙና:",
+                btn_submit_bulk: "ልኣኽ",
+                admin_login_title: "⚙️ መእተዊ ኣድሚን", admin_pass_label: "ሚስጥር ቃል:", btn_admin_login: "እቶ",
+                admin_panel_title: "⚙️ ፓነል ኣድሚን", admin_logo_title: "🖼️ ሎጎ ቀይር",
+                admin_search_title: "🔍 ኮድ መለዪ", admin_search_desc: "ስም ወይ ስልኪ ኣእቱ።",
+                btn_search_code: "ድለ", admin_item_title: "🛍️ ንብረት ጽዓን",
+                admin_cat_label: "ምድብ:", admin_item_name: "ስም ንብረት:", admin_item_price: "ዋጋ (ብር):",
+                admin_item_photo: "ፎቶ:", btn_upload_item: "ጽዓን",
+                active_orders_title: "ንቁ ትእዛዛት", archive_orders_title: "✅ ዝተዛዘሙ ስራሓት"
+            },
+            om: {
+                company_name: "Little Nest Design",
+                welcome_msg: "Baga nagaan dhuftan!",
+                manifesto_text: "Tajaajila hunda manoo xiqqoo keessatti",
+                market_categories: "Gita Gabaa",
+                cat_mens: "👔 Uffata Dhiiraa", cat_mens_sub: "T-Shirt, Shaamizii...",
+                cat_womens: "👗 Uffata Dubaraa", cat_womens_sub: "Qamisii...",
+                cat_muslim: "🧕 Dubartoota Muslimaatiif", cat_muslim_sub: "Hijab, Abaya",
+                cat_plussize: "👗 Plus Size", cat_plussize_sub: "Dizaayinii mijataa",
+                cat_boys: "👦 Ijoollee Dhiiraa", cat_boys_sub: "Uffata ijoollee",
+                cat_girls: "👧 Ijoollee Dubaraa", cat_girls_sub: "Qamisii",
+                cat_beds: "🛏️ Uffata Siree", cat_beds_sub: "Paarkoo",
+                cat_pampers: "👶 Paamparsii", cat_pampers_sub: "Qulqulluu",
+                cat_sanitary: "🌸 Qulqullina", cat_sanitary_sub: "Kan dhiiqamu",
+                cat_bags: "👜 Borsaa", cat_bags_sub: "Hojii harka",
+                btn_ind_order: "✨ Ajaja Dizaayinii Dhunfaa",
+                btn_bulk_order: "Ajaja Baay'inaa",
+                tracker_title: "🔍 Hordofii Haala Ajajaa",
+                tracker_desc: "Koodii keessan galchaa.",
+                btn_check_status: "Haala Ajajaa Agarsiisi",
+                bank_accounts_title: "💳 Herrega Baankii:-",
+                upload_slip_label: "📸 Suuraa Sliipii Fe’aa:",
+                btn_send_slip: "Sliipii Ergii",
+                cust_lost_code_title: "❓ Koodiin keessan badeeraa?",
+                cust_lost_code_desc: "Maqaa ykn bilbila galchi.",
+                btn_find_my_code: "Koodii Barbaadi",
+                reviews_title: "💬 Yaada Maamiltootaa",
+                reviews_desc: "Yaada maamiltootaa",
+                write_review_title: "Yaada keessan barreessaa:",
+                placeholder_reviewer_name: "Maqaa keessan",
+                placeholder_review_text: "Yaada keessan asitti barreessaa...",
+                btn_send_review: "Yaada Ergii",
+                btn_back_home: "← Deebi'i",
+                ind_form_title: "Ajaja Dizaayinii Dhunfaa",
+                ind_form_note: "⚠️ Suuraa ergii.",
+                lbl_fullname: "Maqaa Guutuu:", lbl_phone: "Bilbila:", lbl_telegram: "Telegram:",
+                lbl_destination: "Bakki Geessisuu:",
+                dest_addis: "Finfinnee", dest_region: "Naannoo", dest_intl: "Biyya Alaa",
+                lbl_gender: "Saala:", gender_male: "Dhiira", gender_female: "Dubara",
+                lbl_age: "Umrii:", lbl_item_type: "Gosa:", item_other: "Kan biroo",
+                lbl_color: "Halluu:", lbl_fabric: "Qulqullina:", lbl_photo: "📸 Suuraa:",
+                measurements_title: "Safartuu Qaamaa",
+                m_length: "Dheeraa:", m_waist: "Mudhii:", m_hip: "Cinaacha:", m_thigh: "Sarbaa:",
+                btn_submit_order: "Ajaja Ergii",
+                bulk_form_title: "Unka Ajaja Baay'inaa", bulk_item_desc: "Gosa Baay'inaa:",
+                size_breakdown: "📏 Safartuu Sanyiin:", size_other: "Kan biroo", bulk_photo: "📸 Suuraa Fakkii:",
+                btn_submit_bulk: "Ergii",
+                admin_login_title: "⚙️ Seensa Admin", admin_pass_label: "Jecha Iccitii:", btn_admin_login: "Seeni",
+                admin_panel_title: "⚙️ Paaneelii Admin", admin_logo_title: "🖼️ Logo Jijjiiri",
+                admin_search_title: "🔍 Koodii Barbaadi", admin_search_desc: "Maqaa ykn bilbila.",
+                btn_search_code: "Barbaadi", admin_item_title: "🛍️ Meeshaa Fe'i",
+                admin_cat_label: "Gita:", admin_item_name: "Maqaa Meeshaa:", admin_item_price: "Gatii (Birr):",
+                admin_item_photo: "Suuraa:", btn_upload_item: "Fe'i",
+                active_orders_title: "Ajaja Maamiltootaa", archive_orders_title: "✅ Xumuraman"
+            },
+            so: {
+                company_name: "Little Nest Design",
+                welcome_msg: "Soo dhaawow!",
+                manifesto_text: "Adeeg oo dhan oo guri yar",
+                market_categories: "Qaybaha Suuqa",
+                cat_mens: "👔 Dharka Ragga", cat_mens_sub: "T-Shirts...",
+                cat_womens: "👗 Dharka Dumarka", cat_womens_sub: "Noocyada...",
+                cat_muslim: "🧕 Dumarka Muslimka", cat_muslim_sub: "Hijab, Abaya",
+                cat_plussize: "👗 Plus Size", cat_plussize_sub: "Naqshad raaxo leh",
+                cat_boys: "👦 Carruurta Ragga", cat_boys_sub: "Dharka",
+                cat_girls: "👧 Carruurta Dumarka", cat_girls_sub: "Garka",
+                cat_beds: "🛏️ Gogosha", cat_beds_sub: "Daahyada",
+                cat_pampers: "👶 Pampers", cat_pampers_sub: "Tayada",
+                cat_sanitary: "🌸 Nadaafadda", cat_sanitary_sub: "Haweenka",
+                cat_bags: "👜 Boorsooyinka", cat_bags_sub: "Gacanta",
+                btn_ind_order: "✨ Dalabka Shakhsiga ah",
+                btn_bulk_order: "Dalabka Badan",
+                tracker_title: "🔍 Raadraaca Dalabka",
+                tracker_desc: "Geli koodkaaga.",
+                btn_check_status: "Muuji Xaaladda",
+                bank_accounts_title: "💳 Xisaabaadka Bangiga:-",
+                upload_slip_label: "📸 Soo geli Slip-ka:",
+                btn_send_slip: "Dir Slip-ka",
+                cust_lost_code_title: "❓ Koodhkaagu ma lumay?",
+                cust_lost_code_desc: "Geli magaca ama lambarka.",
+                btn_find_my_code: "Raadi Koodhka",
+                reviews_title: "💬 Faallooyinka Macaamiisha",
+                reviews_desc: "Faallooyinka",
+                write_review_title: "Qor faalloadaada:",
+                placeholder_reviewer_name: "Magacaaga",
+                placeholder_review_text: "Halkan ku qor faalloadaada...",
+                btn_send_review: "Dir Faallo",
+                btn_back_home: "← Ku noqo",
+                ind_form_title: "Dalabka Naqshadeynta",
+                ind_form_note: "⚠️ Sawirka dir.",
+                lbl_fullname: "Magaca:", lbl_phone: "Tel:", lbl_telegram: "Telegram:",
+                lbl_destination: "Meesha:",
+                dest_addis: "Addis Ababa", dest_region: "Gobol", dest_intl: "Dibadda",
+                lbl_gender: "Jinsiga:", gender_male: "Rag", gender_female: "Dumar",
+                lbl_age: "Da'da:", lbl_item_type: "Nooca:", item_other: "Kale",
+                lbl_color: "Midabka:", lbl_fabric: "Tayada:", lbl_photo: "📸 Sawirka:",
+                measurements_title: "Cabbirka Jirka",
+                m_length: "Dhererka:", m_waist: "Dhexda:", m_hip: "Sinaha:", m_thigh: "Gorgorka:",
+                btn_submit_order: "Dir Dalabka",
+                bulk_form_title: "Dalabka Badan", bulk_item_desc: "Nooca Badan:",
+                size_breakdown: "📏 Cabbirrada:", size_other: "Kale", bulk_photo: "📸 Muunadda:",
+                btn_submit_bulk: "Dir",
+                admin_login_title: "⚙️ Galitaanka Admin", admin_pass_label: "Erayga Sirta ah:", btn_admin_login: "Gal",
+                admin_panel_title: "⚙️ Guddiga Admin", admin_logo_title: "🖼️ Beddel Logo",
+                admin_search_title: "🔍 Raadinta Koodka", admin_search_desc: "Magaca ama tel.",
+                btn_search_code: "Raadi", admin_item_title: "🛍️ Geli Alaabta",
+                admin_cat_label: "Qaybta:", admin_item_name: "Magaca:", admin_item_price: "Qiimaha (ETB):",
+                admin_item_photo: "Sawirka:", btn_upload_item: "Geli",
+                active_orders_title: "Dalabyada", archive_orders_title: "✅ Dhameystiran"
+            },
+            wo: {
+                company_name: "Little Nest Design",
+                welcome_msg: "Goshshuwa!",
+                manifesto_text: "Xarun gura gita",
+                market_categories: "Ooranchchi",
+                cat_mens: "👔 Addo Maata", cat_mens_sub: "T-Shirt...",
+                cat_womens: "👗 Macca Maata", cat_womens_sub: "Qamisa...",
+                cat_muslim: "🧕 Muslima Macca", cat_muslim_sub: "Hijabi",
+                cat_plussize: "👗 Plus Size", cat_plussize_sub: "Mijata",
+                cat_boys: "👦 Addo Naata", cat_boys_sub: "Naata",
+                cat_girls: "👧 Macca Naata", cat_girls_sub: "Qamisa",
+                cat_beds: "🛏️ Shachcho", cat_beds_sub: "Migaraya",
+                cat_pampers: "👶 Pampers", cat_pampers_sub: "Lo7o",
+                cat_sanitary: "🌸 Macca Noshsho", cat_sanitary_sub: "No7o",
+                cat_bags: "👜 Bolsa", cat_bags_sub: "Goga",
+                btn_ind_order: "✨ Ooso Sho7o",
+                btn_bulk_order: "Darshu Ooso",
+                tracker_title: "🔍 Ooso Siyoo",
+                tracker_desc: "Koodhi gi shoo7i.",
+                btn_check_status: "Siyoo Leenke",
+                bank_accounts_title: "💳 Banki Akawnti:-",
+                upload_slip_label: "📸 Banki Slip Shiiqi:",
+                btn_send_slip: "Slip Shiinsho",
+                cust_lost_code_title: "❓ Koodhni gi qadiro?",
+                cust_lost_code_desc: "Suntsa woy bilbili shoo7i.",
+                btn_find_my_code: "Koodhi Qadi",
+                reviews_title: "💬 Ayfe Ooso",
+                reviews_desc: "Ayfe aalo",
+                write_review_title: "Ayfe gi shoo7i:",
+                placeholder_reviewer_name: "Suntsane",
+                placeholder_review_text: "Ayfene asinni shoo7i...",
+                btn_send_review: "Ayfe Shiinsho",
+                btn_back_home: "← Shiiqo",
+                ind_form_title: "Ooso Sho7o",
+                ind_form_note: "⚠️ Foto shiiqi.",
+                lbl_fullname: "Suntsa:", lbl_phone: "Bilbili:", lbl_telegram: "Telegram:",
+                lbl_destination: "Geessa:",
+                dest_addis: "Addis Ababa", dest_region: "Kifla Hagar", dest_intl: "Biyya Alaa",
+                lbl_gender: "Atha:", gender_male: "Addo", gender_female: "Macca",
+                lbl_age: "Asira:", lbl_item_type: "Ooso Gosa:", item_other: "Harre",
+                lbl_color: "Kolo:", lbl_fabric: "Lo7o:", lbl_photo: "📸 Foto:",
+                measurements_title: "Ooso Guba",
+                m_length: "Dheera:", m_waist: "Mudi:", m_hip: "Cina:", m_thigh: "Sarba:",
+                btn_submit_order: "Ooso Shiinsho",
+                bulk_form_title: "Darshu Form", bulk_item_desc: "Darshu Gosa:",
+                size_breakdown: "📏 Saayizi:", size_other: "Harre", bulk_photo: "📸 Foto Namuna:",
+                btn_submit_bulk: "Shiinsho",
+                admin_login_title: "⚙️ Admin Logini", admin_pass_label: "Passwordi:", btn_admin_login: "Logini",
+                admin_panel_title: "⚙️ Admin Paneli", admin_logo_title: "🖼️ Logo Sho7i",
+                admin_search_title: "🔍 Koodhi Qadi", admin_search_desc: "Suntsa woy bilbili.",
+                btn_search_code: "Qadi", admin_item_title: "🛍️ Ooso Shiiqi",
+                admin_cat_label: "Gosa:", admin_item_name: "Ooso Suntsa:", admin_item_price: "Waaga (ETB):",
+                admin_item_photo: "Foto:", btn_upload_item: "Shiiqi",
+                active_orders_title: "Ooso Aalo", archive_orders_title: "✅ Xumuri"
+            },
+            ar: {
+                company_name: "Little Nest Design",
+                welcome_msg: "مرحباً بك!",
+                manifesto_text: "جميع الخدمات",
+                market_categories: "فئات السوق",
+                cat_mens: "👔 ملابس الرجال", cat_mens_sub: "تيشيرتات...",
+                cat_womens: "👗 ملابس النساء", cat_womens_sub: "فساتين...",
+                cat_muslim: "🧕 ملابس النساء المسلمات", cat_muslim_sub: "حجاب، عباية",
+                cat_plussize: "👗 ملابس المقاسات الخاصة", cat_plussize_sub: "تصاميم مريحة وأنيقة",
+                cat_boys: "👦 ملابس الأولاد", cat_boys_sub: "ملابس",
+                cat_girls: "👧 ملابس البنات", cat_girls_sub: "فساتين",
+                cat_beds: "🛏️ مفارش السرير", cat_beds_sub: "ستائر",
+                cat_pampers: "👶 حفاضات الأطفال", cat_pampers_sub: "عالية الجودة",
+                cat_sanitary: "🌸 فوط صحية", cat_sanitary_sub: "نظافة النساء",
+                cat_bags: "👜 الحقائب والقبعات", cat_bags_sub: "أعمال يدوية",
+                btn_ind_order: "✨ طلب تصميم فردي",
+                btn_bulk_order: "الطلب بالجملة",
+                tracker_title: "🔍 تتبع حالة الطلب",
+                tracker_desc: "أدخل كود التأكيد الخاص بك.",
+                btn_check_status: "عرض الطلب والحالة",
+                bank_accounts_title: "💳 حسابات التحويل البنكي:-",
+                upload_slip_label: "📸 تحميل إيصال البنك:",
+                btn_send_slip: "إرسال الإيصال",
+                cust_lost_code_title: "❓ هل فقدت الكود الخاص بك؟",
+                cust_lost_code_desc: "أدخل الاسم أو رقم الهاتف.",
+                btn_find_my_code: "البحث عن الكود",
+                reviews_title: "💬 تقييمات وآراء العملاء",
+                reviews_desc: "آراء العملاء",
+                write_review_title: "اكتب تقييمك أو رأيك:",
+                placeholder_reviewer_name: "اسمك الكامل",
+                placeholder_review_text: "اكتب تقييمك هنا...",
+                btn_send_review: "إرسال التقييم",
+                btn_back_home: "← العودة",
+                ind_form_title: "طلب تصميم فردي",
+                ind_form_note: "⚠️ أرسل الصورة.",
+                lbl_fullname: "الاسم:", lbl_phone: "الهاتف:", lbl_telegram: "Telegram:",
+                lbl_destination: "الوجهة:",
+                dest_addis: "أديس أبابا", dest_region: "الأقاليم", dest_intl: "دولياً",
+                lbl_gender: "الجنس:", gender_male: "ذكر", gender_female: "أنثى",
+                lbl_age: "العمر:", lbl_item_type: "نوع العنصر:", item_other: "آخر",
+                lbl_color: "اللون:", lbl_fabric: "نوع القماش:", lbl_photo: "📸 الصورة:",
+                measurements_title: "قياسات الجسم",
+                m_length: "الطول:", m_waist: "الخصر:", m_hip: "الورك:", m_thigh: "الفخذ:",
+                btn_submit_order: "إرسال الطلب",
+                bulk_form_title: "نموذج الطلب بالجملة", bulk_item_desc: "نوع الجملة:",
+                size_breakdown: "📏 تفصيل المقاسات:", size_other: "آخر", bulk_photo: "📸 العينة:",
+                btn_submit_bulk: "إرسال",
+                admin_login_title: "⚙️ تسجيل دخول المسؤول", admin_pass_label: "كلمة المرور:", btn_admin_login: "دخول",
+                admin_panel_title: "⚙️ لوحة التحكم", admin_logo_title: "🖼️ تغيير الشعار",
+                admin_search_title: "🔍 البحث عن الكود", admin_search_desc: "ابحث بالاسم أو الهاتف.",
+                btn_search_code: "بحث", admin_item_title: "🛍️ إضافة عناصر",
+                admin_cat_label: "الفئة:", admin_item_name: "اسم العنصر:", admin_item_price: "السعر (بر):",
+                admin_item_photo: "الصورة:", btn_upload_item: "تحميل",
+                active_orders_title: "الطلبات النشطة", archive_orders_title: "✅ الأرشيف"
+            },
+            fr: {
+                company_name: "Little Nest Design",
+                welcome_msg: "Bienvenue !",
+                manifesto_text: "Tous les services",
+                market_categories: "Catégories du Marché",
+                cat_mens: "👔 Hommes", cat_mens_sub: "T-shirts...",
+                cat_womens: "👗 Femmes", cat_womens_sub: "Robes...",
+                cat_muslim: "🧕 Femmes Musulmanes", cat_muslim_sub: "Hijab, Abaya",
+                cat_plussize: "👗 Grande Taille (Plus Size)", cat_plussize_sub: "Confortable et élégant",
+                cat_boys: "👦 Garçons", cat_boys_sub: "Enfants",
+                cat_girls: "👧 Filles", cat_girls_sub: "Robes",
+                cat_beds: "🛏️ Literie", cat_beds_sub: "Draps",
+                cat_pampers: "👶 Couches", cat_pampers_sub: "Qualité",
+                cat_sanitary: "🌸 Hygiène", cat_sanitary_sub: "Lavables",
+                cat_bags: "👜 Sacs", cat_bags_sub: "Artisanat",
+                btn_ind_order: "✨ Commande sur mesure",
+                btn_bulk_order: "Commande en gros",
+                tracker_title: "🔍 Suivi de commande",
+                tracker_desc: "Entrez votre code.",
+                btn_check_status: "Afficher",
+                bank_accounts_title: "💳 Comptes Bancaires:-",
+                upload_slip_label: "📸 Reçu bancaire:",
+                btn_send_slip: "Envoyer",
+                cust_lost_code_title: "❓ Code perdu ?",
+                cust_lost_code_desc: "Entrez le nom ou téléphone.",
+                btn_find_my_code: "Trouver le code",
+                reviews_title: "💬 Avis des clients",
+                reviews_desc: "Avis",
+                write_review_title: "Écrivez votre avis :",
+                placeholder_reviewer_name: "Votre nom",
+                placeholder_review_text: "Écrivez votre avis ici...",
+                btn_send_review: "Envoyer l'avis",
+                btn_back_home: "← Retour",
+                ind_form_title: "Commande sur mesure",
+                ind_form_note: "⚠️ Envoyez la photo.",
+                lbl_fullname: "Nom:", lbl_phone: "Téléphone:", lbl_telegram: "Telegram:",
+                lbl_destination: "Destination:",
+                dest_addis: "Addis-Abeba", dest_region: "Régions", dest_intl: "International",
+                lbl_gender: "Sexe:", gender_male: "Homme", gender_female: "Femme",
+                lbl_age: "Âge:", lbl_item_type: "Type:", item_other: "Autre",
+                lbl_color: "Couleur:", lbl_fabric: "Tissu:", lbl_photo: "📸 Photo:",
+                measurements_title: "Mesures corporelles",
+                m_length: "Longueur:", m_waist: "Taille:", m_hip: "Hanches:", m_thigh: "Cuisse:",
+                btn_submit_order: "Envoyer",
+                bulk_form_title: "Formulaire en gros", bulk_item_desc: "Type en gros:",
+                size_breakdown: "📏 Tailles:", size_other: "Autre", bulk_photo: "📸 Modèle:",
+                btn_submit_bulk: "Envoyer",
+                admin_login_title: "⚙️ Connexion Admin", admin_pass_label: "Mot de passe:", btn_admin_login: "Connexion",
+                admin_panel_title: "⚙️ Panneau Admin", admin_logo_title: "🖼️ Changer Logo",
+                admin_search_title: "🔍 Recherche de code", admin_search_desc: "Par nom ou téléphone.",
+                btn_search_code: "Rechercher", admin_item_title: "🛍️ Ajouter articles",
+                admin_cat_label: "Catégorie:", admin_item_name: "Nom:", admin_item_price: "Prix (ETB):",
+                admin_item_photo: "Photo:", btn_upload_item: "Ajouter",
+                active_orders_title: "Commandes actives", archive_orders_title: "✅ Archives"
+            },
+            zh: {
+                company_name: "Little Nest Design",
+                welcome_msg: "欢迎光临！",
+                manifesto_text: "温馨小窝",
+                market_categories: "市场分类",
+                cat_mens: "👔 男装", cat_mens_sub: "T恤...",
+                cat_womens: "👗 女装", cat_womens_sub: "连衣裙...",
+                cat_muslim: "🧕 穆斯林女装", cat_muslim_sub: "头巾、长袍",
+                cat_plussize: "👗 大码女装 (Plus Size)", cat_plussize_sub: "舒适优雅设计",
+                cat_boys: "👦 男童装", cat_boys_sub: "童装",
+                cat_girls: "👧 女童装", cat_girls_sub: "裙子",
+                cat_beds: "🛏️ 床品", cat_beds_sub: "床单",
+                cat_pampers: "👶 纸尿裤", cat_pampers_sub: "高品质",
+                cat_sanitary: "🌸 女性护理", cat_sanitary_sub: "可水洗",
+                cat_bags: "👜 包包", cat_bags_sub: "手工",
+                btn_ind_order: "✨ 定制服装",
+                btn_bulk_order: "批量订购",
+                tracker_title: "🔍 订单追踪",
+                tracker_desc: "输入您的验证码。",
+                btn_check_status: "查看状态",
+                bank_accounts_title: "💳 银行账户:-",
+                upload_slip_label: "📸 上传凭证:",
+                btn_send_slip: "发送凭证",
+                cust_lost_code_title: "❓ 忘记验证码？",
+                cust_lost_code_desc: "输入姓名或电话号码。",
+                btn_find_my_code: "找回验证码",
+                reviews_title: "💬 客户评价",
+                reviews_desc: "评价",
+                write_review_title: "写下您的评价：",
+                placeholder_reviewer_name: "您的全名",
+                placeholder_review_text: "在此写下您的评价...",
+                btn_send_review: "提交评价",
+                btn_back_home: "← 返回",
+                ind_form_title: "定制服装",
+                ind_form_note: "⚠️ 请上传照片。",
+                lbl_fullname: "姓名：", lbl_phone: "电话：", lbl_telegram: "Telegram：",
+                lbl_destination: "目的地：",
+                dest_addis: "亚的斯亚贝巴", dest_region: "外省", dest_intl: "境外",
+                lbl_gender: "性别：", gender_male: "男", gender_female: "女",
+                lbl_age: "年龄：", lbl_item_type: "类型：", item_other: "其他",
+                lbl_color: "颜色：", lbl_fabric: "面料：", lbl_photo: "📸 照片：",
+                measurements_title: "身体尺码",
+                m_length: "衣长：", m_waist: "腰围：", m_hip: "臀围：", m_thigh: "大腿围：",
+                btn_submit_order: "提交订单",
+                bulk_form_title: "批量表单", bulk_item_desc: "批发类型：",
+                size_breakdown: "📏 尺码明细：", size_other: "其他", bulk_photo: "📸 样品：",
+                btn_submit_bulk: "提交",
+                admin_login_title: "⚙️ 管理员登录", admin_pass_label: "密码：", btn_admin_login: "登录",
+                admin_panel_title: "⚙️ 管理面板", admin_logo_title: "🖼️ 更换Logo",
+                admin_search_title: "🔍 查找验证码", admin_search_desc: "按姓名或电话。",
+                btn_search_code: "查找", admin_item_title: "🛍️ 上架商品",
+                admin_cat_label: "分类：", admin_item_name: "名称：", admin_item_price: "价格（比尔）：",
+                admin_item_photo: "照片：", btn_upload_item: "上架",
+                active_orders_title: "进行中订单", archive_orders_title: "✅ 已完成"
+            },
+            es: {
+                company_name: "Little Nest Design",
+                welcome_msg: "¡Bienvenido!",
+                manifesto_text: "Todos los servicios",
+                market_categories: "Categorías del Mercado",
+                cat_mens: "👔 Hombre", cat_mens_sub: "Camisetas...",
+                cat_womens: "👗 Mujer", cat_womens_sub: "Vestidos...",
+                cat_muslim: "🧕 Mujeres Musulmanas", cat_muslim_sub: "Hiyab, Abaya",
+                cat_plussize: "👗 Tallas Grandes (Plus Size)", cat_plussize_sub: "Diseños cómodos y elegantes",
+                cat_boys: "👦 Niños", cat_boys_sub: "Ropa",
+                cat_girls: "👧 Niñas", cat_girls_sub: "Vestidos",
+                cat_beds: "🛏️ Cama", cat_beds_sub: "Sábanas",
+                cat_pampers: "👶 Pañales", cat_pampers_sub: "Calidad",
+                cat_sanitary: "🌸 Higiene", cat_sanitary_sub: "Lavables",
+                cat_bags: "👜 Bolsos", cat_bags_sub: "Artesanía",
+                btn_ind_order: "✨ Pedido a medida",
+                btn_bulk_order: "Pedido al por mayor",
+                tracker_title: "🔍 Seguimiento de pedido",
+                tracker_desc: "Ingresa tu código.",
+                btn_check_status: "Mostrar estado",
+                bank_accounts_title: "💳 Cuentas bancarias:-",
+                upload_slip_label: "📸 Comprobante:",
+                btn_send_slip: "Enviar",
+                cust_lost_code_title: "❓ ¿Código perdido?",
+                cust_lost_code_desc: "Ingresa nombre o teléfono.",
+                btn_find_my_code: "Buscar código",
+                reviews_title: "💬 Opiniones de clientes",
+                reviews_desc: "Opiniones",
+                write_review_title: "Escribe tu opinión:",
+                placeholder_reviewer_name: "Tu nombre completo",
+                placeholder_review_text: "Escribe tu opinión aquí...",
+                btn_send_review: "Enviar opinión",
+                btn_back_home: "← Volver",
+                ind_form_title: "Pedido a medida",
+                ind_form_note: "⚠️ Envía la foto.",
+                lbl_fullname: "Nombre:", lbl_phone: "Teléfono:", lbl_telegram: "Telegram:",
+                lbl_destination: "Destino:",
+                dest_addis: "Adís Abeba", dest_region: "Regiones", dest_intl: "Internacional",
+                lbl_gender: "Género:", gender_male: "Hombre", gender_female: "Mujer",
+                lbl_age: "Edad:", lbl_item_type: "Tipo:", item_other: "Otro",
+                lbl_color: "Color:", lbl_fabric: "Tela:", lbl_photo: "📸 Foto:",
+                measurements_title: "Medidas corporales",
+                m_length: "Largo:", m_waist: "Cintura:", m_hip: "Cadera:", m_thigh: "Muslo:",
+                btn_submit_order: "Enviar",
+                bulk_form_title: "Formulario al por mayor", bulk_item_desc: "Descripción:",
+                size_breakdown: "📏 Tallas:", size_other: "Otro", bulk_photo: "📸 Muestra:",
+                btn_submit_bulk: "Enviar",
+                admin_login_title: "⚙️ Inicio de sesión", admin_pass_label: "Contraseña:", btn_admin_login: "Entrar",
+                admin_panel_title: "⚙️ Panel Admin", admin_logo_title: "🖼️ Cambiar Logo",
+                admin_search_title: "🔍 Búsqueda de código", admin_search_desc: "Por nombre o teléfono.",
+                btn_search_code: "Buscar", admin_item_title: "🛍️ Subir artículos",
+                admin_cat_label: "Categoría:", admin_item_name: "Nombre:", admin_item_price: "Precio (ETB):",
+                admin_item_photo: "Foto:", btn_upload_item: "Subir",
+                active_orders_title: "Pedidos activos", archive_orders_title: "✅ Archivo"
+            }
+        };
+
+        function changeLanguage(lang) {
+            const dict = translations[lang] || translations['am'];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(dict[key]) {
+                    el.innerText = dict[key];
+                }
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if(dict[key]) {
+                    el.placeholder = dict[key];
+                }
+            });
+            localStorage.setItem('lnd_selected_lang', lang);
+        }
+
+        window.onload = function() {
+            const savedLogo = localStorage.getItem('lnd_company_logo');
+            if(savedLogo) {
+                document.getElementById('main-logo-preview').src = savedLogo;
+                document.querySelectorAll('.logo-container img').forEach(img => img.src = savedLogo);
+            }
+            const savedLang = localStorage.getItem('lnd_selected_lang') || 'am';
+            document.getElementById('lang-selector').value = savedLang;
+            changeLanguage(savedLang);
+            loadPublicReviews();
+        };
+
+        function loadPublicReviews() {
+            const container = document.getElementById('public-reviews-container');
+            let reviews = JSON.parse(localStorage.getItem('lnd_public_reviews')) || [
+                { name: 'ማህሌት አበበ', rating: '★★★★★', text: 'ልብሱን ዛሬ ተረክቤያለሁ! አሰራሩም ጥራቱንም በጣም ነው የወደድኩት። እናመሰግናለን!' },
+                { name: 'ናትናኤል ታደሰ', rating: '★★★★★', text: 'እጅግ በጣም ጥራት ያለው ቲሸርት ነው የሰራችሁልኝ። ፍሪ ዴሊቨሪም ፈጣን ነው።' }
+            ];
+
+            let html = '';
+            reviews.forEach(rev => {
+                html += `
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span>${rev.name}</span>
+                            <span class="review-stars">${rev.rating}</span>
+                        </div>
+                        <div class="review-body">${rev.text}</div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function submitPublicReview() {
+            const name = document.getElementById('reviewer-name').value.trim();
+            const rating = document.getElementById('review-rating').value;
+            const text = document.getElementById('review-text').value.trim();
+
+            if(!name || !text) {
+                alert("እባክዎ ስምዎን እና አስተያየትዎን ይፃፉ!");
+                return;
+            }
+
+            let reviews = JSON.parse(localStorage.getItem('lnd_public_reviews')) || [];
+            reviews.unshift({ name, rating, text });
+            localStorage.setItem('lnd_public_reviews', JSON.stringify(reviews));
+
+            document.getElementById('reviewer-name').value = '';
+            document.getElementById('review-text').value = '';
+            loadPublicReviews();
+            alert("አስተያየትዎ ተመዝግቧል! አሁን ሁሉም ሰው ሊያየው ይችላል።");
+        }
+
+        let logoClickCount = 0;
+        let logoClickTimer = null;
+        function secretAdminTrigger() {
+            logoClickCount++;
+            if (logoClickCount === 3) {
+                logoClickCount = 0;
+                clearTimeout(logoClickTimer);
+                showForm('admin-login');
+            } else {
+                clearTimeout(logoClickTimer);
+                logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 800);
+            }
+        }
+
+        const defaultCategoryData = {
+            'ወንድ አዋቂ': { title: '👔 የወንድ ልብሶች', items: [{ name: 'ክላሲክ ጥቁር ቲሸርት', price: '1,800 ብር', img: 'logo.jpg' }] },
+            'ሴት አዋቂ': { title: '👗 የሴት ልብሶች', items: [{ name: 'ረጅም ክሮስ ስከርት', price: '2,200 ብር', img: 'logo.jpg' }] },
+            'ሙስሊም ሴቶች': { title: '🧕 ለሙስሊም ሴቶች', items: [] },
+            'ፕላስ ሳይዝ': { title: '👗 ለፕላስ ሳይዝ ሴቶች', items: [] },
+            'ወንድ ህጻን': { title: '👦 የወንድ ህጻናት', items: [] },
+            'ሴት ህጻን': { title: '👧 የሴት ህጻናት', items: [] },
+            'አልጋ ልብስ': { title: '🛏️ አልጋ ልብሶች', items: [] },
+            'ፓምፐርስ': { title: '👶 የህጻናት ፓምፐርስ', items: [] },
+            'ንጽህና መጠበቂያ': { title: '🌸 የሚታጠቡ ንጽህና', items: [] },
+            'ቦርሳ እና ኮፍያ': { title: '👜 ቦርሳ እና ኮፍያ', items: [] }
+        };
+
+        function getCategoryData() {
+            let saved = localStorage.getItem('lnd_marketplace_data');
+            if(saved) return JSON.parse(saved);
+            localStorage.setItem('lnd_marketplace_data', JSON.stringify(defaultCategoryData));
+            return defaultCategoryData;
+        }
+
+        function saveAdminLogo() {
+            const fileInput = document.getElementById('admin-logo-file-input');
+            if(fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newLogoBase64 = e.target.result;
+                    localStorage.setItem('lnd_company_logo', newLogoBase64);
+                    document.getElementById('main-logo-preview').src = newLogoBase64;
+                    document.querySelectorAll('.logo-container img').forEach(img => img.src = newLogoBase64);
+                    alert("የድርጅቱ ሎጎ በተሳካ ሁኔታ ተቀይሮ ተቀምጧል!");
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                alert("እባክዎ መጀመሪያ አዲስ ሎጎ ፎቶ ይምረጡ!");
+            }
+        }
+
+        function addNewMarketItem() {
+            const cat = document.getElementById('new-item-cat').value;
+            const name = document.getElementById('new-item-name').value.trim();
+            const price = document.getElementById('new-item-price').value.trim();
+            const imgFile = document.getElementById('new-item-img').files[0];
+
+            if(!name || !price || !imgFile) {
+                alert("እባክዎ የምድቡን ስም፣ ዋጋ እና ፎቶ ሙሉ በሙሉ ያስገቡ!");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                let catData = getCategoryData();
+                if(!catData[cat]) catData[cat] = { title: cat, items: [] };
+                if(!catData[cat].items) catData[cat].items = [];
+
+                catData[cat].items.push({
+                    name: name,
+                    price: price,
+                    img: e.target.result
+                });
+
+                localStorage.setItem('lnd_marketplace_data', JSON.stringify(catData));
+                alert("እቃው እና ዋጋው በተሳካ ሁኔታ ተጫኗል!");
+                document.getElementById('new-item-name').value = '';
+                document.getElementById('new-item-price').value = '';
+                document.getElementById('new-item-img').value = '';
+            };
+            reader.readAsDataURL(imgFile);
+        }
+
+        function openCategory(catKey) {
+            const data = getCategoryData()[catKey];
+            if(!data) return;
+            document.getElementById('home-view').style.display = 'none';
+            document.getElementById('sub-category-view').style.display = 'block';
+            document.getElementById('sub-cat-title').innerText = data.title;
+            const feedContainer = document.getElementById('pinterest-feed-container');
+            let html = '';
+            if(data.items && data.items.length > 0) {
+                data.items.forEach(item => {
+                    html += `
+                        <div style="background-color:#faf8f6; border:1px solid #d7ccc8; border-radius:10px; overflow:hidden;">
+                            <img src="${item.img}" style="width:100%; height:150px; object-fit:cover; cursor:pointer;" onclick="openModal('${item.img}')" onerror="this.src='https://via.placeholder.com/200x150?text=Photo'">
+                            <div style="padding:10px; text-align:center;">
+                                <h4 style="margin:0 0 4px 0; font-size:13px; color:#3e2723;">${item.name}</h4>
+                                <div style="color:#b71c1c; font-weight:bold; font-size:14px; margin-bottom:8px;">${item.price}</div>
+                                <button class="btn-primary" style="padding: 6px; font-size: 11px; margin-bottom:0;" onclick="orderPinterestItem('${item.name}', '${item.price}')">ይህንን እቃ አዘዝ</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                html = `<p style="text-align:center; color:#6d4c41; grid-column:span 2;">በዚህ ምድብ ውስጥ እስካሁን የተጫኑ እቃዎች የሉም።</p>`;
+            }
+            feedContainer.innerHTML = html;
+        }
+
+        function orderPinterestItem(itemName, itemPrice) {
+            showForm('individual');
+            document.getElementById('ind-item-type').value = itemName + " (" + itemPrice + ")";
+        }
+
+        function verifyAdminPassword() {
+            const enteredPass = document.getElementById('admin-password-input').value;
+            const savedPass = localStorage.getItem('lnd_admin_password') || '1234';
+            
+            if(enteredPass === savedPass) {
+                document.getElementById('admin-password-input').value = "";
+                showForm('admin');
+            } else { alert("የተሳሳተ የሚስጥር ቃል!"); }
+        }
+
+        function changeAdminPassword() {
+            const newPass = document.getElementById('new-admin-pass').value.trim();
+            if(!newPass) { alert("እባክዎ አዲስ የሚስጥር ቃል ያስገቡ!"); return; }
+            localStorage.setItem('lnd_admin_password', newPass);
+            document.getElementById('new-admin-pass').value = '';
+            alert("የአስተዳዳሪው የሚስጥር ቃል በተሳካ ሁኔታ ተቀይሯል!");
+        }
+
+        function showForm(type) {
+            ['home-view', 'sub-category-view', 'individual-form-view', 'bulk-form-view', 'admin-login-view', 'admin-view'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            if(type === 'individual') document.getElementById('individual-form-view').style.display = 'block';
+            else if(type === 'bulk') document.getElementById('bulk-form-view').style.display = 'block';
+            else if(type === 'admin-login') document.getElementById('admin-login-view').style.display = 'block';
+            else if(type === 'admin') { document.getElementById('admin-view').style.display = 'block'; loadAdminPanel(); }
+        }
+
+        function showHome() { 
+            document.getElementById('home-view').style.display = 'block'; 
+            ['sub-category-view', 'individual-form-view', 'bulk-form-view', 'admin-login-view', 'admin-view'].forEach(id => document.getElementById(id).style.display = 'none'); 
+            loadPublicReviews();
+        }
+
+        function generateTrackingCode() { return "LND-" + Math.floor(1000 + Math.random() * 9000); }
+
+        function submitIndividualOrder(event) {
+            event.preventDefault();
+            const file = document.getElementById('ind-design-photo').files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const code = generateTrackingCode();
+                const itemSelected = document.getElementById('ind-item-type').value;
+                const orderData = {
+                    code: code,
+                    name: document.getElementById('ind-name').value.trim(),
+                    phone: document.getElementById('ind-country-code').value + " " + document.getElementById('ind-phone').value.trim(),
+                    telegram: document.getElementById('ind-telegram').value || 'በቴሌግራም የተላከ',
+                    destination: document.getElementById('ind-destination-type').value,
+                    details: `[ትዕዛዝ] እቃ: ${itemSelected} <br>• ከለር: ${document.getElementById('ind-color').value} <br>• ጨርቅ: ${document.getElementById('ind-fabric').value} <br>• ልኬት: ርዝመት ${document.getElementById('m-length').value}ሴሜ, ወገብ ${document.getElementById('m-waist').value}ሴሜ, ዳሌ ${document.getElementById('m-hip').value}ሴሜ`,
+                    price: itemSelected.includes('ብር') ? itemSelected.match(/\(([^)]+)\)/)[1] : 'ገና አልተወሰነም (አድሚን ዋጋ ይልክልዎታል)',
+                    designImg: e.target.result,
+                    slipImg: '',
+                    status: 'ትዕዛዝዎ ደርሷል',
+                    driverInfo: ''
+                };
+                let orders = JSON.parse(localStorage.getItem('lnd_admin_orders')) || [];
+                orders.unshift(orderData);
+                localStorage.setItem('lnd_admin_orders', JSON.stringify(orders));
+
+                alert(`ትዕዛዝዎ ተልኳል! የማረጋገጫ ኮድዎ፡ ${code} ነው።`);
+                showHome();
+            };
+            if(file) reader.readAsDataURL(file);
+        }
+
+        function submitBulkOrder(event) {
+            event.preventDefault();
+            const file = document.getElementById('bulk-design-photo').files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const code = generateTrackingCode();
+                const s = document.getElementById('bulk-size-s').value || 0;
+                const m = document.getElementById('bulk-size-m').value || 0;
+                const l = document.getElementById('bulk-size-l').value || 0;
+                const xl = document.getElementById('bulk-size-xl').value || 0;
+                const xxl = document.getElementById('bulk-size-2xl').value || 0;
+                const other = document.getElementById('bulk-size-other').value || 0;
+                const total = parseInt(s)+parseInt(m)+parseInt(l)+parseInt(xl)+parseInt(xxl)+parseInt(other);
+
+                const orderData = {
+                    code: code,
+                    name: document.getElementById('bulk-name').value.trim(),
+                    phone: document.getElementById('bulk-country-code').value + " " + document.getElementById('bulk-phone').value.trim(),
+                    telegram: document.getElementById('bulk-telegram').value || 'በቴሌግራም',
+                    destination: 'domestic-region',
+                    details: `[ጅምላ] እቃ: ${document.getElementById('bulk-item-desc').value} <br>• ሳይዝ: S:${s}, M:${m}, L:${l}, XL:${xl}, 2XL:${xxl} <br>• ጠቅላላ ብዛት: ${total} ፍሬ`,
+                    price: 'ገና አልተወሰነም',
+                    designImg: e.target.result,
+                    slipImg: '',
+                    status: 'የጅምላ ትዕዛዝዎ ደርሷል - አድሚን ዋጋ እስኪያስገባ ይጠብቁ',
+                    driverInfo: ''
+                };
+                let orders = JSON.parse(localStorage.getItem('lnd_admin_orders')) || [];
+                orders.unshift(orderData);
+                localStorage.setItem('lnd_admin_orders', JSON.stringify(orders));
+
+                alert(`የጅምላ ትዕዛዝዎ ተልኳል! ኮድዎ፡ ${code}`);
+                showHome();
+            };
+            if(file) reader.readAsDataURL(file);
+        }
+
+        let activeCheckedCode = "";
+        function checkStatus() {
+            const code = document.getElementById('track-code').value.trim();
+            const orders = JSON.parse(localStorage.getItem('lnd_admin_orders')) || [];
+            const archives = JSON.parse(localStorage.getItem('lnd_admin_archive')) || [];
+            
+            let found = orders.find(o => o.code === code) || archives.find(o => o.code === code);
+            const statusOutput = document.getElementById('status-text-output');
+            const paymentSection = document.getElementById('payment-upload-section');
+
+            if(found) {
+                activeCheckedCode = code;
+                let destText = found.destination === 'local-addis' ? '<b>አዲስ አበባ ውስጥ:</b> ፍሪ ዴሊቨሪ' : 
+                               found.destination === 'domestic-region' ? '<b>ክፍለ ሀገር:</b> እቃው ሊላክ ሲል ክፍያ' : '<b>ከሀገር ውጪ:</b> ዲኤችኤል/ሆስተስ';
+
+                statusOutput.innerHTML = `
+                    <div style="background:#faf8f6; padding:10px; border-radius:6px; border:1px solid #d7ccc8; margin-bottom:12px;">
+                        <h4 style="color:#5d4037; margin:0 0 5px 0; font-size:13px;">📋 ያዘዙት ትዕዛዝ ሙሉ ዝርዝር:</h4>
+                        • ስም: ${found.name}<br>
+                        • <b>${found.details}</b><br>
+                        • መድረሻ: ${destText}<br>
+                        <div style="margin-top:8px; text-align:center;">
+                            <span style="font-size:12px; color:#6d4c41; font-weight:bold;">ያዘዙት ፎቶ/ናሙና:</span><br>
+                            <img src="${found.designImg}" style="width:100px; height:100px; object-fit:cover; border-radius:6px; border:1px solid #d7ccc8; margin-top:4px; cursor:pointer;" onclick="openModal('${found.designImg}')">
+                        </div>
+                    </div>
+
+                    <b>የኮድ ቁጥር (${code}) የሂደት ደረጃ:</b><br>
+                    • <b>የእቃው ዋጋ:</b> <span style="color:#b71c1c; font-weight:bold; font-size:16px;">${found.price}</span><br>
+                    • <b>የሂደት ደረጃ:</b> <span style="color:#2e7d32; font-weight:bold;">${found.status}</span>
+                    ${found.driverInfo ? `<br><br><b>🚚 የመላኪያ መረጃ:</b><br>${found.driverInfo}` : ''}
+                `;
+                paymentSection.style.display = 'block';
+                document.getElementById('status-result').style.display = 'block';
+            } else {
+                statusOutput.innerHTML = `በዚህ ኮድ (${code}) የተገኘ ትዕዛዝ የለም። እባክዎ ኮድዎን በትክክል መጻፍዎን ይፈትሹ።`;
+                paymentSection.style.display = 'none';
+                document.getElementById('status-result').style.display = 'block';
+            }
+        }
+
+        function submitCustomerSlip() {
+            const file = document.getElementById('customer-slip-file').files[0];
+            if(!file) { alert("እባክዎ የባንክ ስሊፕ ፎቶ ይምረጡ!"); return; }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                let orders = JSON.parse(localStorage.getItem('lnd_admin_orders')) || [];
+                orders = orders.map(o => {
+                    if(o.code === activeCheckedCode) {
+                        o.slipImg = e.target.result;
+                        o.status = 'የባንክ ስሊፕ ተልኳል - እቃዎ እየተዘጋጀ/ሊላክ ነው።';
+                    }
+                    return o;
+                });
+                localStorage.setItem('lnd_admin_orders', JSON.stringify(orders));
+                document.getElementById('slip-success-msg').innerText = "የባንክ ስሊፕዎ በተሳካ ሁኔታ ተልኳል!";
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function openModal(imgSrc) {
+            document.getElementById('modalImage').src = imgSrc;
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+        function closeModal() { document.getElementById('imageModal').style.display = 'none'; }
+
+        function customerFindTheirCode() {
+            const query = document.getElementById('customer-self-search-input').value.trim().toLowerCase();
+            const resultBox = document.getElementById('customer-self-search-result');
+            if(!query) { alert("እባክዎ ስምዎን ወይም ስልክ ቁጥርዎን ያስገቡ!"); return; }
+
+            let orders = JSON.parse(localStorage.getItem('lnd_admin_orders')) || [];
+            let archives = JSON.parse(localStorage.getItem('lnd_admin_archive')) || [];
+            let allOrders = [...orders, ...archives];
+
+            let cleanQuery = query.replace(/[\s\-\+]/g, '');
+            let foundList = allOrders.filter(o => {
+                let cleanName = (o.name || '').toLowerCase();
+                let cleanPhone = (o.phone || '').toLowerCase().replace(/[\s\-\+]/g, '');
+                return cleanName.includes(query) || cleanPhone.includes(cleanQuery);
+            });
+
+            if(foundList.length > 0) {
+                let html = `<b>የተገኙ ትዕዛዞች እና ኮዶች (${foundList.length}):</b><br>`;
+                foundList.forEach(item => {
+                    html += `
+                        <div style="border-top:1px solid #d7ccc8; margin-top:8px; padding-top:8px;">
+                            • ስም: <b>${item.name}</b> | ስልክ: ${item.phone}<br>
+                            • የኮድ ቁጥርዎ: <span style="color:#b71c1c; font-weight:bold; font-size:16px;">${item.code}</span><br>
+                            • ዝርዝር: ${item.details}
+                        </div>
+                    `;
+                });
+                resultBox.innerHTML = html;
+                resultBox.style.display = 'block';
+            } else {
+                resultBox.innerHTML = `በዚህ ስም ወይም ስልክ ቁጥር የተመዘገበ ትዕዛዝ አልተገኘም።`;
+                resultBox.style.display = 'block';
+            }
+        }
+
+        function searchCustomerCode() {
+            const query = document.getElementById('admin-search-input').value.trim().toLowerCase();
+            const resultBox = document.getElementById('admin-search-result');
+            if(!query) { alert("እባክዎ የሚፈልጉትን ስም ወይም ስልክ ቁጥር ያስገቡ!"); return; }
+
+            let orders = JSON.parse(localStorage.getItem('lnd_admin_orders')) || [];
+            let archives = JSON.parse(localStorage.getItem('lnd_admin_archive')) || [];
+            let allOrders = [...orders, ...archives];
+
+            let cleanQuery = query.replace(/[\s\-\+]/g, '');
+            let foundList = allOrders.filter(o => {
+                let cleanName = (o.name || '').toLowerCase();
+                let cleanPhone = (o.phone || '').toLowerCase().replace(/[\s\-\+]/g, '');
+                return cleanName.includes(query) || cleanPhone.includes(cleanQuery);
+            });
+
+            if(foundList.length > 0) {
+                let html = `<b>ተወዳዳሪ ውጤቶች (${foundList.length}):</b><br>`;
+                foundList.forEach(item => {
+                    html += `
+                        <div style="border-top:1px solid #d7ccc8; margin-top:8px; padding-top:8px;">
+                            • ስም: <b>${item.name}</b> | ስልክ: ${item.phone}<br>
+                            • ኮድ: <span style="color:#c62828; font-weight:bold; font-size:15px;">${item.code}</span><br>
+                            • ዝርዝር: ${item.details} | ዋጋ: ${item.price}
+                        </div>
+                    `;
+                });
+                resultBox.innerHTML = html;
+                resultBox.style.display = 'block';
+            } else {
+                resultBox.innerHTML = `ይህ ስም ወይም ስልክ ቁጥር ያለው ትዕዛዝ አልተገኘም።`;
+                resultBox.style.display = 'block';
+            }
+        }
+
+        function loadAdminPanel() {
+            loadActiveOrders();
+            loadArchiveOrders();
+        }
+
+        function loadActiveOrders() {
+            const container = document.getElementById('admin-orders-container');
+            let orders = JSON.parse(localStorage.getItem('lnd_admin_orders')) || [];
+            if(orders.length === 0) { container.innerHTML = `<p style="text-align:center; font-size:13px; color:#6d4c41;">እስካሁን ንቁ ትዕዛዝ የለም።</p>`; return; }
+
+            let html = '';
+            orders.forEach((ord, index) => {
+                html += `
+                    <div class="admin-order-card">
+                        <p><strong>ኮድ:</strong> <span style="color:#c62828;">${ord.code}</span> | <strong>ስም:</strong> ${ord.name} | <strong>ስልክ:</strong> ${ord.phone}</p>
+                        <p><strong>መድረሻ:</strong> ${ord.destination} | <strong>ቴሌግራም:</strong> ${ord.telegram}</p>
+                        <p><strong>ዝርዝር:</strong> ${ord.details}</p>
+                        
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin: 10px 0;">
+                            <div><label style="font-size:11px;">ፎቶ:</label><img src="${ord.designImg}" class="admin-img-preview" onclick="openModal('${ord.designImg}')"></div>
+                            <div><label style="font-size:11px;">የባንክ ስሊፕ:</label>${ord.slipImg ? `<img src="${ord.slipImg}" class="admin-img-preview" onclick="openModal('${ord.slipImg}')">` : '<span style="font-size:12px;color:red;">አልላከም</span>'}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="color:#c62828;">ዋጋ አስገባ (ብር):</label>
+                            <input type="text" id="admin-price-${index}" value="${ord.price}" placeholder="2,500 ብር">
+                            <button class="btn-primary" style="padding:6px; margin-top:5px;" onclick="updateAdminPrice('${ord.code}', ${index})">ዋጋውን አስቀምጥ</button>
+                        </div>
+
+                        ${ord.destination === 'domestic-region' ? `
+                            <div class="form-group" style="background:#fff3e0; padding:8px; border-radius:6px;">
+                                <label style="color:#ef6c00; font-size:12px;">የክልል መኪና/ሹፌር መረጃ:</label>
+                                <input type="text" id="admin-driver-${index}" value="${ord.driverInfo || ''}" placeholder="የሹፌር ስልክ፣ መኪና ታርጋ..." style="font-size:12px; margin-bottom:5px;">
+                                <button class="btn-primary" style="padding:5px; font-size:12px; background:#ef6c00;" onclick="updateDriverInfo('${ord.code}', ${index})">መረጃውን ላክ</button>
+                            </div>
+                        ` : ''}
+
+                        <div class="form-group">
+                            <label style="color:#c62828;">ሁኔታ (Status):</label>
+                            <input type="text" id="admin-status-${index}" value="${ord.status}" style="font-size:12px; margin-bottom:5px;">
+                            <button class="btn-primary btn-admin-red" style="padding:5px; font-size:12px;" onclick="updateOrderStatusText('${ord.code}', ${index})">ሁኔታውን አዘምን</button>
+                        </div>
+
+                        <button class="btn-primary btn-success-green" style="padding:8px; font-size:13px; margin-top:10px;" onclick="moveToArchive('${ord.code}')">✅ ተሳክቷል / ተረክቧል (ወደ ማህደር ውሰድ)</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function loadArchiveOrders() {
+            const container = document.getElementById('admin-archive-container');
+            let archives = JSON.parse(localStorage.getItem('lnd_admin_archive')) || [];
+            if(archives.length === 0) { container.innerHTML = `<p style="text-align:center; font-size:13px; color:#558b2f;">ማህደር ውስጥ የተጠናቀቀ ስራ የለም።</p>`; return; }
+
+            let html = '';
+            archives.forEach((ord) => {
+                html += `
+                    <div class="archive-card">
+                        <p><strong>ኮድ:</strong> <span style="color:#558b2f;">${ord.code}</span> | <strong>ስም:</strong> ${ord.name} | <strong>ስልክ:</strong> ${ord.phone}</p>
+                        <p><strong>ዝርዝር:</strong> ${ord.details}</p>
+                        <p style="color: #2e7d32; font-weight: bold; font-size: 12px; margin: 5px 0;">🎉 ሁኔታ: ${ord.status}</p>
+                        <p style="color: #558b2f; font-size: 11px; margin: 0;">የተረከበበት ሰዓት: ${ord.archivedTime}</p>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function moveToArchive(code) {
+            let orders = JSON.parse(localStorage.getItem('lnd_admin_orders')) || [];
+            let archives = JSON.parse(localStorage.getItem('lnd_admin_archive')) || [];
+
+            let index = orders.findIndex(o => o.code === code);
+            if(index !== -1) {
+                let item = orders[index];
+                const now = new Date();
+                const timeString = now.toLocaleDateString() + ' - ' + now.toLocaleTimeString();
+                
+                item.status = `ተሳክቷል - ተረክቧል (${timeString})`;
+                item.archivedTime = timeString;
+
+                archives.unshift(item);
+                orders.splice(index, 1);
+
+                localStorage.setItem('lnd_admin_orders', JSON.stringify(orders));
+                localStorage.setItem('lnd_admin_archive', JSON.stringify(archives));
+
+                alert(`ትዕዛዙ (${code}) በተሳካ ሁኔታ ወደ ማህደር (Archive) ተዛውሯል!`);
+                loadAdminPanel();
+            }
+        }
+
+        function updateAdminPrice(code, index) {
+            const priceVal = document.getElementById(`admin-price-${index}`).value;
+            let orders = JSON.parse(localStorage.getItem('lnd_admin_orders')) || [];
+            orders = orders.map(o => { if(o.code === code) o.price = priceVal; return o; });
+            localStorage.setItem('lnd_admin_orders', JSON.stringify(orders));
+            alert("ዋጋው ተመዝግቧል!");
+        }
+
+        function updateDriverInfo(code, index) {
+            const driverVal = document.getElementById(`admin-driver-${index}`).value;
+            let orders = JSON.parse(localStorage.getItem('lnd_admin_orders')) || [];
+            orders = orders.map(o => { if(o.code === code) o.driverInfo = driverVal; return o; });
+            localStorage.setItem('lnd_admin_orders', JSON.stringify(orders));
+            alert("የመኪና/ሹፌር መረጃ ተመዝግቧል!");
+        }
+
+        function updateOrderStatusText(code, index) {
+            const statusVal = document.getElementById('admin-status-' + index).value;
+            let orders = JSON.parse(localStorage.getItem('lnd_admin_orders')) || [];
+            orders = orders.map(o => { if(o.code === code) o.status = statusVal; return o; });
+            localStorage.setItem('lnd_admin_orders', JSON.stringify(orders));
+            alert("ሁኔታው ተዘምኗል!");
+        }
+    </script>
+</body>
+</html>
